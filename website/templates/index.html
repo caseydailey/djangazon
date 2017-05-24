@@ -26,7 +26,7 @@
       {% block sidebar %}
       <ul class="sidebar-nav">
           <li><a href="">Home</a></li>
-          <li><a href="">Product Categories</a></li>
+          <li><a href="{% url 'website:product_categories_view' %}">Product Categories</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'website:sell' %}">
           Sale Your Product</a></li>
