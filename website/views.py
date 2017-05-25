@@ -276,13 +276,16 @@ def edit_account(request):
 def edit_payment_type(request):
     payment_types = PaymentType.objects.filter(user=request.user)
     template_name = 'account/edit_payment.html'
-    if request.method == "POST":
-       payment_type = PaymentType.objects.get(pk=request.POST.get('payment_type'))
-       payment_type.delete()
-    return render(request, template_name, {
-        "payment_types": payment_types
-        })
 
+    if request.method == "POST" and payment_types:
+        payment_type = PaymentType.objects.get(pk=request.POST.get('payment_type'))
+        payment_type.delete()
+        return render(request, template_name, {
+            "payment_types": payment_types
+            })
+    elif not payment_types:
+        return HttpResponseRedirect('/no_payment_type')
+        
 @login_required
 def view_order(request):
     """
@@ -329,17 +332,17 @@ def view_order(request):
 def view_checkout(request, order_id):
 
     products = Product.objects.filter(order=order_id)
+    payment_types = PaymentType.objects.filter(user=request.user)
     print("products line 326: {}".format(products))
 
-    if request.method == 'GET' and products:
-        payment_types = PaymentType.objects.filter(user=request.user)
+    if request.method == 'GET' and products and payment_types:
         template_name = 'orders/view_checkout.html'
         return render(request, template_name, {
             "products": products,
             "payment_types": payment_types
             })
 
-    elif request.method == 'POST' and products:
+    elif request.method == 'POST' and products and payment_types:
         payment_type = PaymentType.objects.get(pk=request.POST.get('select'))
         user_order = Order.objects.get(pk=order_id)
         user_order.payment_type = payment_type
@@ -350,6 +353,10 @@ def view_checkout(request, order_id):
     elif not products:
         return HttpResponseRedirect('/no_order')
 
+    elif not payment_types:
+        return HttpResponseRedirect('/no_payment_type')
+
+
 def order_complete(request, order_id):
     if request.method == 'GET':
         template_name = 'orders/order_complete.html'
@@ -358,4 +365,9 @@ def order_complete(request, order_id):
 def no_order(request):
     if request.method == 'GET':
         template_name = 'orders/no_order.html'
+        return render(request, template_name)
+
+def no_payment_type(request):
+    if request.method == 'GET':
+        template_name = 'account/no_payment_type.html'
         return render(request, template_name)
