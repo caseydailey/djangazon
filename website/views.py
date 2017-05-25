@@ -272,18 +272,38 @@ def edit_account(request):
     template_name = 'account/edit_account.html'
     return render(request, template_name)
 
-# @login_required
+@login_required
 def edit_payment_type(request):
+    """
+    purpose: expose user's payment types and provide affordance to delete
+    author: casey dailey
+    args: request
+    returns: rendered view of user's payment types if there are any; redirect if none
+    """
     payment_types = PaymentType.objects.filter(user=request.user)
-    template_name = 'account/edit_payment.html'
-
-    if request.method == "POST" and payment_types:
-        payment_type = PaymentType.objects.get(pk=request.POST.get('payment_type'))
-        payment_type.delete()
+    
+    if request.method == "GET" and payment_types:
+        template_name = 'account/edit_payment.html'
         return render(request, template_name, {
             "payment_types": payment_types
             })
-    elif not payment_types:
+
+    elif request.method == 'POST':
+        print("HELLO FROM THE POST")
+        if 'delete' in 'POST' and payment_types:
+            print("payment_types: {}".format(payment_types))
+            payment_type = PaymentType.objects.get(pk=request.POST.get('payment_type'))
+            print("payment_typee: {}".format(payment_type))
+            payment_type.delete()
+            if payment_types:
+                return render(request, template_name, {
+                    "payment_types": payment_types
+                    })
+            elif not payment_types:
+                return HttpResponseRedirect('/no_payment_type') 
+    
+    elif  request.method == "GET" and not payment_types:
+        print("NO PAYMENT TYPES")
         return HttpResponseRedirect('/no_payment_type')
         
 @login_required
@@ -323,7 +343,6 @@ def view_order(request):
 
         elif 'checkout' in request.POST:
             return HttpResponseRedirect('/view_checkout/{}'.format(open_order.id))
-
 
     except ObjectDoesNotExist:
         return HttpResponseRedirect('/no_order')
