@@ -23,11 +23,13 @@
 
 
     </ol>
-   
     <form method="post">
     {% csrf_token %}
     <input type="submit" name="checkout" value="checkout">
     </form>
+    <br>
+    <br>
+    <a href="{% url 'website:index' %}">continue shopping?</a>
   
   </body>
 </html>

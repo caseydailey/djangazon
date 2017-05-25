@@ -314,6 +314,7 @@ def view_order(request):
             return HttpResponseRedirect('/view_order')
 
         elif not products:
+            open_order.delete()
             return HttpResponseRedirect('/no_order')
             
 
