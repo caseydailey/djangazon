@@ -235,7 +235,7 @@ def product_details(request, product_id):
             users_orders = Order.objects.filter(buyer=request.user)
             print(users_orders)
 
-            return HttpResponseRedirect('/view_order/{}'.format(open_order.id))
+            return HttpResponseRedirect('/view_order')
 
     return render(request, template_name, {
         "product": product})
@@ -297,45 +297,57 @@ def view_order(request):
     try:
         open_order = Order.objects.get(buyer=request.user, date_complete__isnull=True)
         user_order = UserOrder.objects.filter(order=open_order.id)
+        products = UserOrder.objects.filter(order=open_order.id)
         print('open_order line 297: {}'.format(open_order))
 
-        if request.method == 'GET' and open_order:
-            products = UserOrder.objects.filter(order=open_order.id)
+        if request.method == 'GET' and products:
             template_name = 'orders/view_order.html'
             return render(request, template_name, {
                 "products": products,
                 })
 
-        elif 'delete' in request.POST:
+        elif 'delete' in request.POST and products:
             print(request.POST.get("product"))
             product1 = UserOrder.objects.get(pk=request.POST.get("product"))
             print("This is your product{}".format(product1))
             product1.delete()
             return HttpResponseRedirect('/view_order')
 
+        elif not products:
+            return HttpResponseRedirect('/no_order')
+            
+
         elif 'checkout' in request.POST:
             return HttpResponseRedirect('/view_checkout/{}'.format(open_order.id))
+
 
     except ObjectDoesNotExist:
         return HttpResponseRedirect('/no_order')
 
 @login_required
 def view_checkout(request, order_id):
-    if request.method == 'GET':
-        products = Product.objects.filter(order=order_id)
+
+    products = Product.objects.filter(order=order_id)
+    print("products line 326: {}".format(products))
+
+    if request.method == 'GET' and products:
         payment_types = PaymentType.objects.filter(user=request.user)
         template_name = 'orders/view_checkout.html'
         return render(request, template_name, {
             "products": products,
             "payment_types": payment_types
             })
-    elif request.method == 'POST':
+
+    elif request.method == 'POST' and products:
         payment_type = PaymentType.objects.get(pk=request.POST.get('select'))
         user_order = Order.objects.get(pk=order_id)
         user_order.payment_type = payment_type
         user_order.date_complete = datetime.datetime.now()
         user_order.save()
         return HttpResponseRedirect('/order_complete/{}'.format(order_id))
+
+    elif not products:
+        return HttpResponseRedirect('/no_order')
 
 def order_complete(request, order_id):
     if request.method == 'GET':
