@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -218,7 +219,7 @@ def product_details(request, product_id):
                 order=open_order)
             user_order.save()
 
-            return HttpResponseRedirect('/view_order/{}'.format(open_order.id))
+            return HttpResponseRedirect('/view_order')
 
         except ObjectDoesNotExist:
             print("DoesNotExistError")
@@ -283,32 +284,40 @@ def edit_payment_type(request):
         })
 
 @login_required
-def view_order(request, order_id):
+def view_order(request):
     """
     purpose: present user order and handle interaction with cart
-    author: casey dailey
+
+    author: casey dailey,  justin short, taylor perky
+
     args: request, order_id
+
     returns: 
     """
-    user_order = UserOrder.objects.filter(order=Order.objects.get(pk=order_id))
-    print(user_order)
+    try:
+        open_order = Order.objects.get(buyer=request.user, date_complete__isnull=True)
+        user_order = UserOrder.objects.filter(order=open_order.id)
+        print('open_order line 297: {}'.format(open_order))
 
-    if request.method == 'GET':
-        products = Product.objects.filter(order=order_id)
-        template_name = 'orders/view_order.html'
-        return render(request, template_name, {
-            "products": user_order
-            })
+        if request.method == 'GET' and open_order:
+            products = UserOrder.objects.filter(order=open_order.id)
+            template_name = 'orders/view_order.html'
+            return render(request, template_name, {
+                "products": products,
+                })
 
-    elif 'delete' in request.POST:
-        print(request.POST.get("product"))
-        product1 = UserOrder.objects.get(pk=request.POST.get("product"))
-        print("This is your product{}".format(product1))
-        product1.delete()
-        return HttpResponseRedirect('/view_order/{}'.format(order_id))
+        elif 'delete' in request.POST:
+            print(request.POST.get("product"))
+            product1 = UserOrder.objects.get(pk=request.POST.get("product"))
+            print("This is your product{}".format(product1))
+            product1.delete()
+            return HttpResponseRedirect('/view_order')
 
-    elif 'checkout' in request.POST:
-        return HttpResponseRedirect('/view_checkout/{}'.format(order_id))
+        elif 'checkout' in request.POST:
+            return HttpResponseRedirect('/view_checkout/{}'.format(open_order.id))
+
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect('/no_order')
 
 @login_required
 def view_checkout(request, order_id):
@@ -324,10 +333,16 @@ def view_checkout(request, order_id):
         payment_type = PaymentType.objects.get(pk=request.POST.get('select'))
         user_order = Order.objects.get(pk=order_id)
         user_order.payment_type = payment_type
+        user_order.date_complete = datetime.datetime.now()
         user_order.save()
         return HttpResponseRedirect('/order_complete/{}'.format(order_id))
 
 def order_complete(request, order_id):
     if request.method == 'GET':
         template_name = 'orders/order_complete.html'
+        return render(request, template_name)
+
+def no_order(request):
+    if request.method == 'GET':
+        template_name = 'orders/no_order.html'
         return render(request, template_name)
