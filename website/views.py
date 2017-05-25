@@ -282,15 +282,16 @@ def edit_payment_type(request):
     """
     payment_types = PaymentType.objects.filter(user=request.user)
     
+    #if GET and there are payment types display them
     if request.method == "GET" and payment_types:
         template_name = 'account/edit_payment.html'
         return render(request, template_name, {
             "payment_types": payment_types
             })
-
+    #if 
     elif request.method == 'POST':
-        print("HELLO FROM THE POST")
-        if 'delete' in 'POST' and payment_types:
+        if request.POST.get('delete'):
+            print("request.POST.values: {}".format(request.POST.values))
             print("payment_types: {}".format(payment_types))
             payment_type = PaymentType.objects.get(pk=request.POST.get('payment_type'))
             print("payment_typee: {}".format(payment_type))
