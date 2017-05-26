@@ -9,12 +9,21 @@ from django.template import RequestContext
 from website.forms import UserForm, ProductForm, AddPaymentForm
 from website.models import Product, Category, PaymentType, Order, UserOrder
 
+# Create your views here.
 def index(request):
+    '''
+    purpose: Shows last 20 products that have been added to the database
+
+    author: miriam rozenbuam
+
+    args: request
+
+    returns: (render): a view of the request, template to use, and product obj
+    ''' 
     template_name = 'index.html'
     top_20_products =  Product.objects.all().order_by("-id")[:20]
     return render(request, template_name, {'top_20_products':top_20_products})
 
-# Create your views here.
 def register(request):
     '''Handles the creation of a new user for authentication
 
@@ -273,6 +282,12 @@ def edit_account(request):
 
 # @login_required
 def edit_payment_type(request):
+    """
+    purpose: present user with option the delete their payment type in the database
+    author: miriam rozenbaum
+    args: request
+    returns: 
+    """
     payment_types = PaymentType.objects.filter(user=request.user)
     template_name = 'account/edit_payment.html'
     if request.method == "POST":
