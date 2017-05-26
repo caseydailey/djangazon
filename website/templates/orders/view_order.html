@@ -14,7 +14,6 @@
         <li>{{ product}}</li>
         <form method="post">
           {% csrf_token %}
-          <h1> {{product.id}} </h1>
           <input type="hidden" name="product" value="{{product.id}}">
           <input type="submit" name="delete" value="delete">
 
