@@ -21,7 +21,7 @@ def index(request):
     args: request
 
     returns: (render): a view of the request, template to use, and product obj
-    ''' 
+    '''
     template_name = 'index.html'
     newest_20_products =  Product.objects.all().order_by("-id")[:20]
     return render(request, template_name, {'newest_20_products':newest_20_products})
@@ -153,8 +153,9 @@ def add_payment_type(request):
     args: name: (string), acount number of credit card
 
     returns: (render): a view of of the request, template to use, and product obj
+
     """
-    #if GET, create a payment form based on our model and render that form. 
+    #if GET, create a payment form based on our model and render that form.
     if request.method == 'GET':
         add_payment_form = AddPaymentForm()
         template_name = 'account/add_payment.html'
@@ -171,7 +172,7 @@ def add_payment_type(request):
         )
         p.save()
         template_name = 'account/add_payment.html'
-        return HttpResponseRedirect('/view_account')
+        return HttpResponseRedirect('/payment_type_success')
 
 def list_products(request):
     template_name = 'product/list.html'
@@ -201,8 +202,8 @@ def product_categories(request):
             cat_product = top_three_per_cat[product.product_category.id]
             if len(cat_product) < 3:
                 cat_product.add(product)
-        
-        #if new category, set it's id as the key and initialize a set for it's value       
+
+        #if new category, set it's id as the key and initialize a set for it's value
         except KeyError:
             top_three_per_cat[product.product_category.id] = set()
             top_three_per_cat[product.product_category.id].add(product)
@@ -255,7 +256,7 @@ def product_details(request, product_id):
 
             return HttpResponseRedirect('/view_order')
 
-        #if no open order, create one. and assign product to it. 
+        #if no open order, create one. and assign product to it.
         except ObjectDoesNotExist:
             open_order = Order(
                 buyer = request.user,
@@ -320,7 +321,7 @@ def edit_payment_type(request):
     returns: rendered view of user's payment types if there are any; redirect if none
     """
     payment_types = PaymentType.objects.filter(user=request.user)
-    
+
     #if GET and there are payment types, display them.
     if request.method == "GET" and payment_types:
         template_name = 'account/edit_payment.html'
@@ -339,13 +340,13 @@ def edit_payment_type(request):
                     "payment_types": payment_types
                     })
             elif not payment_types:
-                return HttpResponseRedirect('/no_payment_type') 
-    
+                return HttpResponseRedirect('/no_payment_type')
+
     #if atttempting to view, but have no payment types, redirect to no_payment_type
     elif  request.method == "GET" and not payment_types:
         print("NO PAYMENT TYPES")
         return HttpResponseRedirect('/no_payment_type')
-        
+
 @login_required
 def view_order(request):
     """
@@ -353,16 +354,15 @@ def view_order(request):
 
     author: casey dailey,  justin short, taylor perky
 
-    args: request, order_id
-
-    returns: 
+    args: request
+    returns:
     """
     #get user's open order and a reference to the products on it.
     try:
         open_order = Order.objects.get(buyer=request.user, date_complete__isnull=True)
         user_order = UserOrder.objects.filter(order=open_order.id)
         products = UserOrder.objects.filter(order=open_order.id)
-        
+
         #if GET and they have products, display them
         if request.method == 'GET' and products:
             template_name = 'orders/view_order.html'
@@ -384,7 +384,7 @@ def view_order(request):
         elif 'cancel_order' in request.POST:
             open_order.delete()
             return HttpResponseRedirect('/no_order')
-     
+
         #redirect to checkout
         elif 'checkout' in request.POST:
             return HttpResponseRedirect('/view_checkout/{}'.format(open_order.id))
@@ -402,7 +402,7 @@ def view_checkout(request, order_id):
 
     returns: render display of products and payment types associated with a user and various redirects
     """
-    
+
     #get products and payment types associated with order/user.
     products = Product.objects.filter(order=order_id)
     payment_types = PaymentType.objects.filter(user=request.user)
@@ -451,4 +451,9 @@ def no_order(request):
 def no_payment_type(request):
     if request.method == 'GET':
         template_name = 'account/no_payment_type.html'
+        return render(request, template_name)
+
+def payment_type_success(request):
+    if request.method == 'GET':
+        template_name = 'account/payment_type_success.html'
         return render(request, template_name)
