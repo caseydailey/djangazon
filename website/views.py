@@ -372,7 +372,11 @@ def view_order(request):
         elif not products:
             open_order.delete()
             return HttpResponseRedirect('/no_order')
-            
+
+        elif 'cancel_order' in request.POST:
+            open_order.delete()
+            return HttpResponseRedirect('/no_order')
+     
         #redirect to checkout
         elif 'checkout' in request.POST:
             return HttpResponseRedirect('/view_checkout/{}'.format(open_order.id))
