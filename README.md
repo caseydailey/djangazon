@@ -42,7 +42,7 @@ Run project in browser:
 python manage.py runserver
 ```
 
-Wanna be a superUser of the future. Try this:
+Wanna be a SuperUser of the future. Try this:
 
 ```
 python manage.py createsuperuser:
