@@ -10,12 +10,12 @@
         <ol> {% for payment_type in payment_types %}
           <form id="edit_payment_type" method="post" action="{% url 'website:edit_payment_type' %}">
             {% csrf_token %}
+            <li>{{ payment_type.name }} {{ payment_type.account_number }}
             <input type="hidden" value="{{payment_type.id}}" name="payment_type" />
-            <li>{{ payment_type.name }} {{ payment_type.account_number }}<input type="submit" value="delete" />
+            <input type="submit" name="delete" value="delete"/>
             </li>
           </form>
           {% endfor %}
       </ol>
   </body>
 </html>
-    
