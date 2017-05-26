@@ -271,7 +271,7 @@ def edit_account(request):
     template_name = 'account/edit_account.html'
     return render(request, template_name)
 
-# @login_required
+@login_required
 def edit_payment_type(request):
     payment_types = PaymentType.objects.filter(user=request.user)
     template_name = 'account/edit_payment.html'
@@ -279,8 +279,7 @@ def edit_payment_type(request):
         payment_type = PaymentType.objects.get(pk=request.POST.get('payment_type'))
         payment_type.delete()
     return render(request, template_name, {
-        "payment_types": payment_types
-        })
+        "payment_types": payment_types})
 
 @login_required
 def view_order(request, order_id):

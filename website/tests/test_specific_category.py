@@ -45,13 +45,20 @@ class SpecificCategoryTestCases(TestCase):
         )
 
     def test_products_exist_in_category_view_response(self):
-        """Profile instance exists"""
+        """
+        Verify that when a specific product category view (e.g. Electronics) is requested, that there are products in the response context
+        test_specific_category.py
+        """
         response = self.client.get(reverse('website:product_category_view', args={self.category_one.pk}))        
         self.assertContains(response, self.product_one,)
         self.assertEqual(response.context['category'], self.category_one)
 
     def test_products_do_not_exist_in_category_view_response(self):
-        """Profile instance exists"""
+        """
+        Verify that when a specific product category view (e.g. Electronics) is requested, that there are products in the response context
+        that are directly related to that category
+        test_specific_category.py
+        """
         response = self.client.get(reverse('website:product_category_view', args={self.category_one.pk}))        
         self.assertNotContains(response, self.product_two)
         self.assertNotContains(response, self.product_three)
