@@ -14,7 +14,6 @@
         <li>{{ product}}</li>
         <form method="post">
           {% csrf_token %}
-          <h1> {{product.id}} </h1>
           <input type="hidden" name="product" value="{{product.id}}">
           <input type="submit" name="delete" value="delete">
 
@@ -31,7 +30,8 @@
       {% csrf_token %}
       <input type="submit" name="cancel_order" value="Cancel Order">
     </form>
-
-
+    <br>
+    <br>
+    <a href="{% url 'website:index' %}">continue shopping?</a>
   </body>
 </html>
