@@ -24,7 +24,6 @@ Install [Python 3.6](https://www.python.org/downloads/)
 Install Django and REST framework:
 ```
 pip install django
-pip install djangorestframework
 ```
 
 ## Installation
@@ -43,10 +42,28 @@ Run project in browser:
 python manage.py runserver
 ```
 
+Wanna be a SuperUser of the future. Try this:
+
+```
+python manage.py createsuperuser:
+url: '/login'
+```
+
+
 
 
 ## Usage
-1.
+1. Customer can add a product to sell
+2. User Can Complete an Order
+3. User can delete product from shopping cart
+4. User can delete a payment type
+5. User can cancel an order
+6. User can select product category when selling product
+7. User can view all product categories
+8. User can view all products that are of a particular product type
+9. User can view product detail
+10. User can view latest products on home page
+11. User can add a payment type
 
 
 ## Contribute
