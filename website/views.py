@@ -323,7 +323,7 @@ def edit_payment_type(request):
     #if POST and it was the 'delete' get the particular payment type and delete it.
     #if that was the last one, redirect to no_payment_type.html, else render remaining payment types
     elif request.method == 'POST':
-        if request.POST.get('delete'):
+        if 'payment_type' in request.POST:
             payment_type = PaymentType.objects.get(pk=request.POST.get('payment_type'))
             payment_type.delete()
             if payment_types:

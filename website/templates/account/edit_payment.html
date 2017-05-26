@@ -12,7 +12,7 @@
             {% csrf_token %}
             <li>{{ payment_type.name }} {{ payment_type.account_number }}
             <input type="hidden" value="{{payment_type.id}}" name="payment_type" />
-            <input type="submit" name="delete" />
+            <input type="submit" name="delete" value="delete"/>
             </li>
           </form>
           {% endfor %}
