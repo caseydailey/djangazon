@@ -9,6 +9,8 @@ class ProductOrderRelationshipTestCases(TestCase):
 
         user_one = User.objects.create(username="Test guy", password="test123")
 
+        self.client = Client()
+        self.client.force_login(user_one)
 
         self.user_order = Order.objects.create(buyer=user_one)
 
@@ -35,15 +37,8 @@ class ProductOrderRelationshipTestCases(TestCase):
 
         self.user_order1 = UserOrder.objects.create(product=self.product_one, order=self.user_order)
 
-        self.client = Client()
-        self.client.force_login(user_one)
-
-
     def test_order_summery_view_has_added_products_in_response(self):
         """order instance exists"""
 
-        print("ellllooooo")
-        response = self.client.get(reverse('website:view_order', args={self.user_order.pk}))
-
-
-        self.assertContains(response, self.user_order1)
+        response = self.client.get(reverse('website:view_order'))
+        self.assertContains(response, self.product_one)
