@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^view_checkout/(?P<order_id>[0-9]+)$', views.view_checkout, name='view_checkout'),
     url(r'^order_complete/(?P<order_id>[0-9]+)$', views.order_complete, name='order_complete'),
     url(r'^no_order$', views.no_order, name='no_order'),
-    url(r'^no_payment_type$', views.no_payment_type, name='no_payment_type')
+    url(r'^no_payment_type$', views.no_payment_type, name='no_payment_type'),
+    url(r'^payment_type_success$', views.payment_type_success, name='payment_type_success')
 
 ]

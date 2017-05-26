@@ -172,7 +172,7 @@ def add_payment_type(request):
         )
         p.save()
         template_name = 'account/add_payment.html'
-        return HttpResponseRedirect('/view_account')
+        return HttpResponseRedirect('/payment_type_success')
 
 def list_products(request):
     template_name = 'product/list.html'
@@ -451,4 +451,9 @@ def no_order(request):
 def no_payment_type(request):
     if request.method == 'GET':
         template_name = 'account/no_payment_type.html'
+        return render(request, template_name)
+
+def payment_type_success(request):
+    if request.method == 'GET':
+        template_name = 'account/payment_type_success.html'
         return render(request, template_name)
