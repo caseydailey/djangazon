@@ -1,7 +1,6 @@
 from django.conf.urls import url
 
 from website.views import index, register, login_user, user_logout, sell_product, add_payment_type, product_categories, product_details, view_specific_product, edit_payment_type, view_order, view_checkout, list_products, view_account, edit_account, order_complete, no_order, no_payment_type
-# from . import views
 
 app_name = "website"
 urlpatterns = [
