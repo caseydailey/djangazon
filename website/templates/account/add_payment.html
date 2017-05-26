@@ -6,6 +6,9 @@
     <title>Bangazon</title>
   </head>
   <body>
+
+    {% include "navbar.html" %}
+
     <h1>Add Payment Type</h1>
 
     <form action="{% url 'website:add_payment_type' %}" method="post">
