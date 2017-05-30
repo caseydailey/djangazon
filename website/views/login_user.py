@@ -29,7 +29,7 @@ def login_user(request):
 
         # If authentication was successful, log the user in
         if authenticated_user is not None:
-            login(request=request, user=authenticated_user)
+            login(request=request, user=authenticated_user)            
             return HttpResponseRedirect('/')
 
         else:
