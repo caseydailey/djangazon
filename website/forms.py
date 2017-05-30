@@ -15,11 +15,11 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('phone_number', 'address')
 
-class ProductForm(forms.ModelForm):
+class ProductForm(forms.ModelForm): 
 
     class Meta:
         model = Product
-        fields = ('title', 'description', 'price', 'quantity', 'product_category')
+        fields = ('title', 'description', 'price', 'quantity', 'product_category', 'city', 'local_delivery')
 
 class AddPaymentForm(forms.ModelForm):
     class Meta:
