@@ -12,9 +12,19 @@
     <h1>Product List</h1>
 
     <ol>
+
     {% for product in products %}
         <li>{{ product.title }}</li>
+    {% endfor %} 
+
+    {% for product in title_contains %}
+        <li>{{ product.title }}</li>
     {% endfor %}
+
+    {% for product in description_contains %}
+        <li>{{ product.title }}</li>
+    {% endfor %}
+
     </ol>
   </body>
 </html>
