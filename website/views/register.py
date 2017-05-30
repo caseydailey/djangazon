@@ -2,8 +2,9 @@
 
 from django.shortcuts import render
 # import forms and models form this app
-from website.forms import UserForm
+from website.forms import UserForm, ProfileForm
 from website.views.login_user import login_user
+from website.models import User, Profile
 
 
 def register(request):
@@ -24,19 +25,20 @@ def register(request):
     # Create a new user by invoking the `create_user` helper method
     # on Django's built-in User model
     if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
+        user_form = UserForm(data=request.POST, instance=request.user)
+        profile_form = ProfileForm(data=request.POST, instance=request.user.profile)
 
-        if user_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
 
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
             user.set_password(user.password)
-            user.save()
+            user.save()            
 
             # Update our variable to tell the template registration was successful.
-            registered = True
+            registered = True        
 
         return login_user(request)
 

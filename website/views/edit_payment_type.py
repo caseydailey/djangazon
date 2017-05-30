@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # import forms and models form this app
-from website.models import PaymentType
+from website.models import PaymentType, Profile
 
 @login_required
 def edit_payment_type(request):
@@ -21,9 +21,11 @@ def edit_payment_type(request):
 
     # if GET and there are payment types, display them.
     if request.method == "GET" and payment_types:
-        template_name = 'account/edit_payment.html'
+        template_name = 'account/edit_payment.html'        
+        my_user = Profile.objects.get(user=request.user)    
         return render(request, template_name, {
-            "payment_types": payment_types})
+            "payment_types": payment_types,
+            "my_user": my_user})
 
     # if POST and it was the 'delete' get the particular payment type and delete it.
     # if that was the last one, redirect to no_payment_type.html, else render remaining payment types
