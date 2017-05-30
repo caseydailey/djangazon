@@ -16,6 +16,12 @@
       <li>Description: {{ product.description }}</li>
       <li>Quantity Available: {{ product.quantity }}</li>
       <li>Price/Unit: {{ product.price }}</li>
+      <li>City: {{ product.city }}</li>
+      {% if product.local_delivery %}
+        <li>Local Delivery: Yes</li>
+      {% else %}        
+        <li>Local Delivery: No</li>
+      {% endif %}
     </ol>
 
   {% if request.user.is_authenticated %}

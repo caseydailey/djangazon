@@ -108,6 +108,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     date_created = models.DateField(auto_now=True, auto_now_add=False)  # This auto generates date on creation
     title = models.CharField(max_length=255)
+    local_delivery = models.BooleanField(default=1)
+    city = models.CharField(max_length=255)
 
     def __str__(self):  # __unicode__ on Python 2
         return self.title
