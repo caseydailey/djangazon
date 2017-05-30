@@ -13,16 +13,16 @@
 
     <ol>
 
-    {% for product in products %}
-        <li>{{ product.title }}</li>
+    {% for product in products %} 
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
     {% endfor %} 
 
     {% for product in title_contains %}
-        <li>{{ product.title }}</li>
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
     {% endfor %}
 
     {% for product in description_contains %}
-        <li>{{ product.title }}</li>
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
     {% endfor %}
 
     </ol>
