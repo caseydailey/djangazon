@@ -36,7 +36,7 @@ def list_products(request):
                 template_name = 'product/no_products.html'
                 return render(request, template_name)
 
-    #they searched for nothing    
+    # they searched for nothing    
     else:
         template_name = 'product/no_products.html'
         return render(request, template_name)
