@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bangazon</title>
+  </head>
+  <body>
+
+    <!-- {% include "navbar.html" %} -->
+
+    <h1>Order History</h1>
+
+    <ol>
+    {% for order in closed_orders %}
+        <h3> To view your order from {{order.id}} {{ order.date_complete }} click <a href="{% url 'website:display_order' order_id=order.id %}"> Here! </a> </h3>
+          <br>
+    {% endfor %}
+    </ol>
+
+  </body>
+</html>
