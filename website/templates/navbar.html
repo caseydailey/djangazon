@@ -10,6 +10,7 @@
         {% if user.is_authenticated %}
         <li><a href="{% url 'website:sell' %}">Sale Your Product</a></li>
         <li><a href="{% url 'website:view_order' %}">Shopping Cart</a></li>
+        <li><a href="{%url 'website:my_products' %}">My Products</a></li>
         <li><a href="{%url 'website:view_account' %}">Account</a></li>
         {% endif %}
     </ul>
