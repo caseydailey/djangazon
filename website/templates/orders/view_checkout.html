@@ -11,6 +11,12 @@
 
     <h1>Checkout Page!</h1>
 
+    {% if message %}
+    <ul class="messages">        
+        <li>{{ message }}</li>        
+    </ul>
+    {% endif %}
+
     <ol>
     {% for product in products %}
         <li>{{ product }}</li>
