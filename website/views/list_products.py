@@ -10,8 +10,15 @@ def list_products(request):
         print("title_contains: {}".format(title_contains))
         description_contains = Product.objects.filter(description__contains=search_query)
         print("description_contains: {}".format(description_contains))
+        city_contains = Product.objects.filter(city__contains=search_query)
+        print("city_contains: {}".format(city_contains))
+
         template_name = 'product/list.html'
-        return render(request, template_name, {"title_contains": title_contains, "description_contains": description_contains})
+        return render(request, template_name, {
+            "title_contains": title_contains, 
+            "description_contains": description_contains,
+            "city_contains": city_contains
+            })
     else:
         template_name = 'product/list.html'
         return render(request, template_name)
