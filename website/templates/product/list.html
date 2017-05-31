@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bangazon</title>
+  </head>
+  <body>
+  
+    {% include "navbar.html" %}
+
+    <h1> Our advanced search capabilities have returned these AMAZING products!</h1>
+
+    <ol>
+
+    {% for product in products %} 
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
+    {% endfor %} 
+
+    {% for product in city_contains %} 
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
+    {% endfor %} 
+
+    {% for product in title_contains %}
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
+    {% endfor %}
+
+    {% for product in description_contains %}
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
+    {% endfor %}
+
+    </ol>
+  </body>
+</html>
