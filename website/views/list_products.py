@@ -20,11 +20,10 @@ def list_products(request):
                 "description_contains": description_contains,
                 "city_contains": city_contains
                 })
-
         else:
             template_name = 'product/no_products.html'
             return render(request, template_name)
         
-    elif not search_query:
+    else:
         template_name = 'product/no_products.html'
         return render(request, template_name)
