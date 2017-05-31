@@ -1,6 +1,25 @@
 from django.conf.urls import url
 
-from website.views import index, register, login_user, user_logout, sell_product, add_payment_type, product_categories, product_details, view_specific_product, edit_payment_type, view_order, view_checkout, list_products, view_account, edit_account, order_complete, no_order, no_payment_type
+from website.views import (
+                        index, 
+                        register, 
+                        login_user, 
+                        user_logout, 
+                        sell_product, 
+                        add_payment_type, 
+                        product_categories, 
+                        product_details, 
+                        view_specific_product, 
+                        edit_payment_type, 
+                        view_order, view_checkout, 
+                        list_products, 
+                        view_account, 
+                        edit_account, 
+                        order_complete, 
+                        no_order, 
+                        no_payment_type, 
+                        no_products
+                        )
 
 app_name = "website"
 urlpatterns = [
@@ -21,7 +40,8 @@ urlpatterns = [
     url(r'^view_checkout/(?P<order_id>[0-9]+)$', view_checkout.view_checkout, name='view_checkout'),
     url(r'^order_complete/(?P<order_id>[0-9]+)$', order_complete.order_complete, name='order_complete'),
     url(r'^no_order$', no_order.no_order, name='no_order'),
-    url(r'^no_payment_type$', no_payment_type.no_payment_type, name='no_payment_type')
+    url(r'^no_payment_type$', no_payment_type.no_payment_type, name='no_payment_type'),
+    url(r'^no_products$', no_products.no_products, name='no_products')
 ]
 
 
