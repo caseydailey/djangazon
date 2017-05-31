@@ -19,13 +19,17 @@ from website.views import (
                         sell_product, 
                         user_logout, 
                         view_account,
-                        view_order, view_checkout, 
-                        view_specific_product)
+                        view_order, 
+                        display_order,
+                        view_order_history,
+                        view_checkout, 
+                        view_specific_product )
 
 app_name = "website"
 urlpatterns = [
     url(r'^$', index.index, name='index'),
     url(r'^add_payment_type$', add_payment_type.add_payment_type, name='add_payment_type'),
+    url(r'^display_order/(?P<order_id>[0-9]+)$', display_order.display_order, name='display_order'),
     url(r'^edit_payment_type$', edit_payment_type.edit_payment_type, name='edit_payment_type'),
     url(r'^edit_user_account$', edit_account.edit_account, name='edit_account'),
     url(r'^list_products$', list_products.list_products, name='list_products'),
@@ -45,7 +49,6 @@ urlpatterns = [
     url(r'^sell_product$', sell_product.sell_product, name='sell'),
     url(r'^view_account$', view_account.view_account, name='view_account'),
     url(r'^view_checkout/(?P<order_id>[0-9]+)$', view_checkout.view_checkout, name='view_checkout'),
-    url(r'^view_order$', view_order.view_order, name='view_order')
+    url(r'^view_order$', view_order.view_order, name='view_order'),
+    url(r'^view_order_history$', view_order_history.view_order_history, name="view_order_history"),
 ]
-
-
