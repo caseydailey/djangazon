@@ -18,7 +18,7 @@ class Profile(models.Model):
     """      
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.TextField(blank=True, null=False, max_length=15)
-    address = models.TextField(blank=True, null=False, max_length=200) 
+    address = models.TextField(blank=True, null=False, max_length=200)     
 
     def __str__(self):  # __unicode__ on Python 2
         return self.user.first_name    
@@ -85,7 +85,7 @@ class Product(models.Model):
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """        
+    """      
     seller = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -124,8 +124,7 @@ class Order(models.Model):
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """      
-    orders = models.ManyToManyField(Product, through="UserOrder")   
+    """          
     buyer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -155,6 +154,21 @@ class UserOrder(models.Model):
 
     def __str__(self):
         return self.product.title
+
+class Recommendations(models.Model):
+    """
+    purpose: Creates Intermediate between to given Users, as well as Product to User.
+
+    author: Taylor Perkins
+
+    args: models.Model: (NA): models class given by Django
+
+    returns: (None): N/A
+    """        
+    to_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_people')
+    from_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_people')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    viewed = models.BooleanField(default=0)
 
 
 

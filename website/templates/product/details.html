@@ -29,6 +29,8 @@
     {% csrf_token %}
     <button type="submit" value="submit">Add to Order</button>
   </form>
+
+  <button><a href="{% url 'website:recommend_product' product_id=product.id %}">Recommend to a Friend!</a></button>
   {% endif %}
 
   </body>
