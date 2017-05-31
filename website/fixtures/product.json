@@ -9,7 +9,9 @@
        "description": "Super cool computer",
        "price": 200.00,
        "date_created": "2014-08-18",
-       "title": "computer"
+       "title": "computer",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -22,7 +24,9 @@
        "description": "Play a game of basketball",
        "price": 19.99,
        "date_created": "2014-08-18",
-       "title": "basketball"
+       "title": "basketball",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -35,7 +39,9 @@
        "description": "Coomfy coomfy chairs!",
        "price": 399.99,
        "date_created": "2014-08-18",
-       "title": "recliner"
+       "title": "recliner",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -48,7 +54,9 @@
        "description": "You can eat with these",
        "price": 49.99,
        "date_created": "2014-08-18",
-       "title": "dinner set"
+       "title": "dinner set",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -61,7 +69,9 @@
        "description": "Wear this!",
        "price": 35.99,
        "date_created": "2014-08-18",
-       "title": "Jacket"
+       "title": "Jacket",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -74,7 +84,9 @@
        "description": "Apple Iphone 6s",
        "price": 750.00,
        "date_created": "2014-08-18",
-       "title": "Iphone 6s"
+       "title": "Iphone 6s",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -87,7 +99,9 @@
        "description": "Soccer Ball",
        "price": 19.99,
        "date_created": "2014-08-18",
-       "title": "soccer ball"
+       "title": "soccer ball",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -100,7 +114,9 @@
        "description": "Leather Sofa",
        "price": 899.99,
        "date_created": "2014-08-18",
-       "title": "L shaped leather sofa"
+       "title": "L shaped leather sofa",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -113,7 +129,9 @@
        "description": "Goldstar Beer, made in Israel.",
        "price": 2.99,
        "date_created": "2014-08-18",
-       "title": "Goldstar beer"
+       "title": "Goldstar beer",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -126,7 +144,9 @@
        "description": "Gray suede ankle boots with a block heel.",
        "price": 795.99,
        "date_created": "2014-08-18",
-       "title": "Prada Boots"
+       "title": "Prada Boots",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
   {
@@ -139,7 +159,9 @@
        "description": "Mac Book Pro 13",
        "price": 800.00,
        "date_created": "2014-08-18",
-       "title": "Mac Book Pro 13"
+       "title": "Mac Book Pro 13",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -152,7 +174,9 @@
        "description": "baseball",
        "price": 10.99,
        "date_created": "2014-08-18",
-       "title": "baseball"
+       "title": "baseball",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -165,7 +189,9 @@
        "description": "Dining Table, sits four, modern.",
        "price": 399.99,
        "date_created": "2014-08-18",
-       "title": "Dining Table"
+       "title": "Dining Table",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -178,7 +204,9 @@
        "description": "chop sticks made out of gold!",
        "price": 999.99,
        "date_created": "2014-08-18",
-       "title": "chop sticks"
+       "title": "chop sticks",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -191,7 +219,9 @@
        "description": "Womens Diesel Jeans, Made in Italy.",
        "price": 35.99,
        "date_created": "2014-08-18",
-       "title": "Diesel Jeans"
+       "title": "Diesel Jeans",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
   {
@@ -204,7 +234,9 @@
        "description": "JBL Speakers, lifetime warrenty. Keep your neighbors up with these.",
        "price": 400.00,
        "date_created": "2014-08-18",
-       "title": "JBL Speakers"
+       "title": "JBL Speakers",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -217,7 +249,9 @@
        "description": "Tennis Balls made out of the best materials.",
        "price": 19.99,
        "date_created": "2014-08-18",
-       "title": "Tennis Ball"
+       "title": "Tennis Ball",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -230,7 +264,9 @@
        "description": "Coffee Table, modern, sleek, and made from oak wood and glass.",
        "price": 399.99,
        "date_created": "2014-08-18",
-       "title": "Coffee Table"
+       "title": "Coffee Table",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -243,7 +279,9 @@
        "description": "Potato Chips",
        "price": 4.99,
        "date_created": "2014-08-18",
-       "title": "Yummy potato chips"
+       "title": "Yummy potato chips",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -256,7 +294,9 @@
        "description": "Converse sneakers",
        "price": 35.99,
        "date_created": "2014-08-18",
-       "title": "Converse Shoes"
+       "title": "Converse Shoes",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
   {
@@ -269,7 +309,9 @@
        "description": "Gibson Guitar owned by The Beatles",
        "price": 999.00,
        "date_created": "2014-08-18",
-       "title": "Gibson Guitar"
+       "title": "Gibson Guitar",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -282,7 +324,9 @@
        "description": "Vollyball that wont hurt your wrists..",
        "price": 19.99,
        "date_created": "2014-08-18",
-       "title": "Vollyball"
+       "title": "Vollyball",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -295,7 +339,9 @@
        "description": "Super sharp knifes. will keep useless people out of the kitchen.",
        "price": 399.99,
        "date_created": "2014-08-18",
-       "title": "Knife Set"
+       "title": "Knife Set",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -308,7 +354,9 @@
        "description": "You can eat with these, and they are also made out of gold.",
        "price": 999.99,
        "date_created": "2014-08-18",
-       "title": "Silverware"
+       "title": "Silverware",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    },
    {
@@ -321,7 +369,9 @@
        "description": "Wear this, and look amazing doing it!",
        "price": 999.99,
        "date_created": "2014-08-18",
-       "title": "Prada Bag"
+       "title": "Prada Bag",
+       "local_delivery": false,
+       "city": "Nashville"
      }
    }
 ]

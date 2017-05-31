@@ -9,12 +9,14 @@
   
     {% include "navbar.html" %}
 
-    <h1>Product List</h1>
+    <h1> Our advanced search capabilities have returned these AMAZING products!</h1>
 
     <ol>
-    {% for product in products %}
-        <li>{{ product.title }}</li>
-    {% endfor %}
+
+    {% for product in results %} 
+        <li><a href="{% url 'website:product_details' product.id %}">{{ product.title }}</a></li>
+    {% endfor %} 
+    
     </ol>
   </body>
 </html>

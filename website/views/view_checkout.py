@@ -3,9 +3,10 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib import messages
 
 # import forms and models form this app
-from website.models import Product, PaymentType, Order
+from website.models import Product, PaymentType, Order, UserOrder
 
 @login_required
 def view_checkout(request, order_id):
@@ -32,10 +33,41 @@ def view_checkout(request, order_id):
     # get the payment type instance selected and apply it to the order along with a time stamp.
     elif request.method == 'POST' and products and payment_types:
         payment_type = PaymentType.objects.get(pk=request.POST.get('select'))
-        user_order = Order.objects.get(pk=order_id)
-        user_order.payment_type = payment_type
-        user_order.date_complete = datetime.datetime.now()
-        user_order.save()
+        order = Order.objects.get(pk=order_id)
+        order_receipt = UserOrder.objects.filter(order=order)
+        order_quantities = dict()
+        for instance in order_receipt:
+            try: 
+                order_quantities[instance.product.id].append(instance.product)
+            except KeyError:
+                order_quantities[instance.product.id] = list()
+                order_quantities[instance.product.id].append(instance.product)
+
+        check_for_below_zero_values = dict()
+        for key, value in order_quantities.items():
+            product = Product.objects.filter(pk=key)
+            product_quantity = product.values('quantity')
+            print("Here is your product quantity: {}".format(product_quantity))
+            check_for_below_zero_values[key] = product_quantity[0]['quantity'] - len(value)
+
+            if check_for_below_zero_values[key] < 0:
+                messages.info(request, 
+                    """Sorry, but we do not have enough {} for you to finish your order!! You currently have {} in your shopping cart,
+                    but we only have {} available! Please adjust your order and try again.""".format(product[0].title, len(value), product_quantity[0]['quantity']))
+
+                return render(request, 'wrong_product_quantity.html')
+
+        print("Your order quantities: {}".format(order_quantities))
+        print("How much would be left: {}".format(check_for_below_zero_values))
+
+        for key, value in check_for_below_zero_values.items():
+            product = Product.objects.get(pk=key)
+            product.quantity = value
+            product.save()
+
+        order.payment_type = payment_type
+        order.date_complete = datetime.datetime.now()
+        order.save()
         return HttpResponseRedirect('/order_complete/{}'.format(order_id))
 
     # if no products, redirect to no_order.html
