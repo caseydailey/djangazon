@@ -29,8 +29,7 @@ def list_products(request):
                 return render(request, template_name, {
                     "title_contains": title_contains, 
                     "description_contains": description_contains,
-                    "city_contains": city_contains
-                    })
+                    "city_contains": city_contains})
 
             # no results 
             else:

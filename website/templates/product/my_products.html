@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bangazon</title>
+  </head>
+  <body>
+  
+    {% include "navbar.html" %}
+
+    <h1>My Products</h1>
+
+    {% load app_filters %}
+
+    {% for product in user_products %}    
+      <p>{{ product }}</p>
+      <p>You have {{ product.quantity }} available.</p>
+      <p>{{ num_of_products_sold|get_dict_val:product.title }} {{ product }} have been sold</p>
+      <hr>
+    {% endfor %}
+
+  </body>
+</html>
