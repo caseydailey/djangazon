@@ -11,7 +11,8 @@
         <li><a href="{% url 'website:sell' %}">Sale Your Product</a></li>
         <li><a href="{% url 'website:view_order' %}">Shopping Cart</a></li>
         <li><a href="{%url 'website:view_account' %}">Account</a></li>
-        <form type="get" action="/list_products" style="margin: 0">
+        <br>
+        <form type="get" action="/list_products">
             <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
             <button id="search_submit" type="submit" >Submit</button>
         </form>
