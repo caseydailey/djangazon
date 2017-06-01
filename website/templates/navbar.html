@@ -1,6 +1,4 @@
 
-
-
 <div class="row">
   <div class="col-sm-2">
     <br>
@@ -15,7 +13,7 @@
         <li><a href="{% url 'website:view_order' %}">Shopping Cart</a></li>
         <li><a href="{%url 'website:my_products' %}">My Products</a></li>
         <li><a href="{%url 'website:view_account' %}">Account</a></li>
-        <li><a href="{%url 'website:notifications' %}">Notifications ({{ notifications }}) </a></li>
+        <li><a href="{%url 'website:notifications' %}">Notifications ({{ notifications.count }}) </a></li>
         <br>
         <form type="get" action="/list_products">
             <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >

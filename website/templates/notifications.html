@@ -9,12 +9,20 @@
 
     {% include "navbar.html" %}    
 
-    <h2>You have {{}} new notifications!</h2>
+    
+    <h2>You have {{ product_recommendations.count }} new notifications!</h2>
 
-    {% for notification in notifications %}
-      
-    {% endfor %}
+   {% for recommendation in product_recommendations %}
+     <form method="post" action="/notifications">
 
+        {% csrf_token %}
+         <p>{{ recommendation.from_person }} recommended {{ recommendation.product.title }}</p>
+         <input type="hidden" method="get" name="go_to_recommendation" value="{{ recommendation.id }}" />
+         <input type="submit" method="get" name="view" value="Check it out" />        
+        
+    </form>
+     <hr>
+   {% endfor %}
 
   </body>
 </html>
