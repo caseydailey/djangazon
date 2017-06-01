@@ -2,7 +2,14 @@ from django.shortcuts import render
 from website.forms import UserForm, ProfileForm
 
 def view_account(request):
+    """
+    author: miriam rozenbaum
+    
+    purpose: display a user's account details such as: first_name, last_name, address, phone. 
+    args: request, user, profile
 
+    returns: render display of current user logged in account details
+    """
     if request.method == 'GET':
 
         user_form = UserForm(instance=request.user)

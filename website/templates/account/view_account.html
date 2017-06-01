@@ -21,18 +21,6 @@
       <input type="submit" value="Update" />
     </form>
   
-    <ol> {% for user in users %}
-          <form id="" method="post" action="{% url 'website:view_account' %}">
-            {% csrf_token %}
-            <li>{{ user.first_name }} {{ user.last_name }} {{ user.profile.phone_number }} {{ user.address }}
-            <input type="hidden" value="{{payment_type.id}}" name="payment_type" />
-            <input type="submit" name="delete" value="delete"/>
-            </li>
-          </form>
-          {% endfor %}
-      </ol>
-
-
     <ul>
           <li><a href="{%url 'website:edit_payment_type' %}">Edit Payment</a></li>
           <li><a href="{%url 'website:view_order_history' %}">Order History</a></li>
