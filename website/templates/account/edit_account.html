@@ -11,7 +11,7 @@
 
     <h1>Edit Account</h1>
     
-    <form action="{% url 'website:view_account' %}" method="post">
+    <form action="{% url 'website:edit_account' %}" method="post">
       {% csrf_token %}
       {{ user_form.as_p }}
       
