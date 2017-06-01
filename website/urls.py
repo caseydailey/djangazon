@@ -23,7 +23,7 @@ from website.views import (
                         display_order,
                         view_order_history,
                         view_checkout, 
-                        view_specific_product )
+                        view_specific_product)
 
 app_name = "website"
 urlpatterns = [
