@@ -30,9 +30,18 @@
       <li>Quantity Available: {{ product.quantity }}</li>
       <li>Price/Unit: {{ product.price }}</li>
       <li>City: {{ product.city }}</li>
+
+      {%if product.image_path%}
+      <img src="/media/{{product.image_path}}" alt="{{product.
+      title}}" width="150">
+      {%else%}
+      <img src="/media/images/no-image.png" alt="{{product.
+      title}}" width="150">
+      {%endif%}
+
       {% if product.local_delivery %}
         <li>Local Delivery: Yes</li>
-      {% else %}        
+      {% else %}
         <li>Local Delivery: No</li>
       {% endif %}
     </ol>

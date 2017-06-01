@@ -11,11 +11,10 @@
 
     <h1>Account information view</h1>
 
-    <ol>
-    {% for product in products %}
-        <li>{{ product.title }}</li>
-    {% endfor %}
-    </ol>
-    <li><a href="{%url 'website:edit_account' %}">Edit Account</a></li>
+  
+    <ul>
+          
+          <li><a href="{%url 'website:edit_account' %}">Edit Account</a></li>
+    </ul>
   </body>
 </html>
