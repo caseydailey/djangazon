@@ -11,19 +11,10 @@
 
     <h1>Account information view</h1>
 
-    <form action="{% url 'website:view_account' %}" method="post">
-      {% csrf_token %}
-      {{ user_form.as_p }}
-      
-      {% csrf_token %}
-      {{ profile_form.as_p }}
-      
-      <input type="submit" value="Update" />
-    </form>
   
     <ul>
-          <li><a href="{%url 'website:edit_payment_type' %}">Edit Payment</a></li>
-          <li><a href="{%url 'website:view_order_history' %}">Order History</a></li>
+          
+          <li><a href="{%url 'website:edit_account' %}">Edit Account</a></li>
     </ul>
   </body>
 </html>
