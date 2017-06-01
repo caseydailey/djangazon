@@ -11,7 +11,7 @@ def sell_product(request):
     """
     purpose: produce a form for the user to create a product to sell
 
-    author: casey dailey
+    author: casey dailey, justin short
 
     args: request
 
