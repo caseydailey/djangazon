@@ -18,7 +18,7 @@ def view_checkout(request, order_id):
     returns: render display of products and payment types associated with a user and various redirects
     """
     # get products and payment types associated with order/user.
-    products = Product.objects.filter(order=order_id)
+    products = UserOrder.objects.filter(order=order_id)
     payment_types = PaymentType.objects.filter(user=request.user)
 
     # if attempting to view the page and they have products and payment types, display them

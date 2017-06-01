@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bangazon</title>
+  </head>
+  <body>
+
+    {% include "navbar.html" %}    
+
+    {% if messages %}
+      {% for message in messages %}
+        <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+          <a class="close" data-dismiss="alert" href="{% url 'website:recommend_product' product_id=product.id %}">&times;</a>
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}      
+
+
+  </body>
+</html>

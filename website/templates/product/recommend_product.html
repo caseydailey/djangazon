@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bangazon</title>
+  </head>
+  <body>
+
+    {% include "navbar.html" %}
+
+    <h1>Product Details Views</h1>
+
+    <p>Who are you recommending {{ product.title }} to?</p>
+
+    <form type="get">
+        <input  id="recommendation_search" type="text" name="recommendation_search"  placeholder="Search by username.." >
+        <button id="recommendation_submit" type="submit" >Send Notification</button>
+    </form>  
+
+  </body>
+</html>
