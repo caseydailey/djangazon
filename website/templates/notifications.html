@@ -16,7 +16,7 @@
      <form method="post" action="/notifications">
 
         {% csrf_token %}
-         <p>{{ recommendation.to_person }} recommended {{ recommendation.product.title }}</p>
+         <p>{{ recommendation.from_person }} recommended {{ recommendation.product.title }}</p>
          <input type="hidden" method="get" name="go_to_recommendation" value="{{ recommendation.id }}" />
          <input type="submit" method="get" name="view" value="Check it out" />        
         
