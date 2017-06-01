@@ -11,8 +11,21 @@
 
     <h1>Product Details Views</h1>
 
+
+    <h2>Title: {{ product.title }}</h2>
+    {% if user.is_authenticated %}      
+      <form id="login_form" method="post">
+          {% csrf_token %}
+          <input type="submit" name="like_dislike" value="Like"  />
+          <br />
+          <input type="submit" name="like_dislike" value="Dislike" />
+          <br />          
+      </form>          
+    {% endif %}
+
+
+    <hr>
     <ol>
-      <li>Title: {{ product.title }}</li>
       <li>Description: {{ product.description }}</li>
       <li>Quantity Available: {{ product.quantity }}</li>
       <li>Price/Unit: {{ product.price }}</li>
@@ -36,7 +49,7 @@
   {% if request.user.is_authenticated %}
   <form method="post" action="{% url 'website:product_details' product_id=product.id %}">
     {% csrf_token %}
-    <button type="submit" value="submit">Add to Order</button>
+    <button type="submit" name="add_to_order" value="submit">Add to Order</button>
   </form>
 
   <button><a href="{% url 'website:recommend_product' product_id=product.id %}">Recommend to a Friend!</a></button>
