@@ -7,20 +7,22 @@
   </head>
   <body>
 
-    <!-- {% include "navbar.html" %} -->
+    {% include "navbar.html" %}
 
     <h1>Checkout Page!</h1>
 
     <ol>
     {% for product in all_products %}
         <h3> {{ product }}</h3>
-        <button> Like Product </button>
-        <button> Dislike Product </button>
+        <p>ona scale of 1-5, how would you rate this product?</p>
+      <form method="POST" name="rating">
+        {% csrf_token %}
+        <input type="range" min="0" max="5" id="{{product.product_id}}" name="range">
+        <input type="hidden" value="{{product.product_id}}" name="id">
+        <input type="submit" value="submit rating">
+      </form>
     {% endfor %}
       <h3> Your order total is {{total}} <h3>
     </ol>
-
-    <input type="submit" value="done">
-    </form>
   </body>
 </html>
