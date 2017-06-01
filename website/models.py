@@ -8,20 +8,20 @@ from django.dispatch import receiver
 class Profile(models.Model):
     """
     purpose: Creates Category table within database
-        Example useage: 
+        Example useage:
 
     author: Taylor Perkins, Justin Short
 
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """      
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.TextField(blank=True, null=False, max_length=15)
-    address = models.TextField(blank=True, null=False, max_length=200)     
+    address = models.TextField(blank=True, null=False, max_length=200)
 
     def __str__(self):  # __unicode__ on Python 2
-        return self.user.first_name    
+        return self.user.first_name
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -36,15 +36,15 @@ class Profile(models.Model):
 class Category(models.Model):
     """
     purpose: Creates Category table within database
-        Example useage: 
+        Example useage:
 
     author: Taylor Perkins, Justin Short
 
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """      
-    category_name = models.TextField()    
+    """
+    category_name = models.TextField()
 
     def __str__(self):  # __unicode__ on Python 2
         return self.category_name
@@ -57,19 +57,19 @@ class Category(models.Model):
 class PaymentType(models.Model):
     """
     purpose: Creates PaymentType table within database
-        Example useage: 
+        Example useage:
 
     author: Taylor Perkins, Justin Short
 
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """       
+    """
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-    )   
-    name = models.TextField(blank=True, null=False, max_length=50) 
+    )
+    name = models.TextField(blank=True, null=False, max_length=50)
     account_number = models.IntegerField(range(12, 20))
 
     # def __str__(self):  # __unicode__ on Python 2
@@ -78,14 +78,14 @@ class PaymentType(models.Model):
 class Product(models.Model):
     """
     purpose: Creates Product table within database
-        Example useage: 
+        Example useage:
 
     author: Taylor Perkins, Justin Short, Casey Dailey
 
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """      
+    """
     seller = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -110,6 +110,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     local_delivery = models.BooleanField(default=1)
     city = models.CharField(max_length=255)
+    image_path = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):  # __unicode__ on Python 2
         return self.title
@@ -117,38 +118,38 @@ class Product(models.Model):
 class Order(models.Model):
     """
     purpose: Creates Order table within database
-        Example useage: 
+        Example useage:
 
     author: Taylor Perkins, Justin Short
 
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """          
+    """
     buyer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-    )   
+    )
     payment_type = models.ForeignKey(
         PaymentType,
         on_delete=models.CASCADE,
         null=True,
         blank=True
-    )   
+    )
     date_complete = models.DateField(null=True, blank=True, auto_now=False, auto_now_add=False)  # This will get filled upon order completion
 
 
 class UserOrder(models.Model):
     """
     purpose: Creates Intermediate table between Order and Product within database
-        Example useage: 
+        Example useage:
 
     author: Taylor Perkins
 
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """       
+    """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
 
@@ -164,12 +165,8 @@ class Recommendations(models.Model):
     args: models.Model: (NA): models class given by Django
 
     returns: (None): N/A
-    """        
+    """
     to_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_people')
     from_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_people')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     viewed = models.BooleanField(default=0)
-
-
-
-

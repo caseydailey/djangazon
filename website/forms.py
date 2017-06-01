@@ -9,21 +9,19 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
-class ProfileForm(forms.ModelForm):  
+class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
         fields = ('phone_number', 'address')
 
-class ProductForm(forms.ModelForm): 
+class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('title', 'description', 'price', 'quantity', 'product_category', 'city', 'local_delivery')
+        fields = ('title', 'description', 'price', 'quantity', 'product_category', 'city', 'local_delivery', 'image_path' )
 
 class AddPaymentForm(forms.ModelForm):
     class Meta:
         model = PaymentType
         fields = ('name', 'account_number')
-
-
