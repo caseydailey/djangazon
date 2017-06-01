@@ -26,6 +26,11 @@ Install Django and REST framework:
 pip install django
 ```
 
+Install Pillow:
+```
+pip install Pillow
+```
+
 ## Installation
 ```
 git clone https://github.com/Trashy-Armadillos/djangazon.git
