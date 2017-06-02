@@ -13,8 +13,7 @@
 
     {% load app_filters %}
 
-    {% for product in user_products %}
-    {{ forloop.counter0 }}    
+    {% for product in user_products %}    
       <p>{{ product }}</p>
       <p>You have {{ product.quantity }} available.</p>
       <p>{{ num_of_products_sold|get_dict_val:product.title }} {{ product }} have been sold</p>

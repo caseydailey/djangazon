@@ -14,7 +14,7 @@
     <ol>
     {% for product in all_products %}
         <h3> {{ product }}</h3>
-        <p>ona scale of 1-5, how would you rate this product?</p>
+        <p>on a scale of 1-5, how would you rate this product?</p>
       <form method="POST" name="rating">
         {% csrf_token %}
         <input type="range" min="0" max="5" id="{{product.product_id}}" name="range">
