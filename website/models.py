@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 
 # Create your models here.
@@ -172,6 +174,26 @@ class Recommendations(models.Model):
     viewed = models.BooleanField(default=0)
 
 
+
+class Ratings(models.Model):
+    """
+    purpose: Creates an intermediate table to store user ratings for products
+    
+    author: casey dailey
+    
+    args: models.Model
+
+    returns: n/a
+    """
+
+    user = models.ForeignKey(User, default=None)    
+    product = models.ForeignKey(Product)
+    rating = models.IntegerField(default=1, validators=[MaxValueValidator(5),
+                                             MinValueValidator(0)])
+
+    def __str__(self):
+        return self.product.title
+
 class LikeDislike(models.Model):
     """
     purpose: Creates Intermediate between to given Users and Products, to specify whether or not a user
@@ -179,6 +201,7 @@ class LikeDislike(models.Model):
     A product is liked when the user clicks like button on product_details, or they order that product
 
     author: Taylor Perkins
+
 
     args: models.Model: (NA): models class given by Django
 

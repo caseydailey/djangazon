@@ -17,6 +17,7 @@
       <p>{{ product }}</p>
       <p>You have {{ product.quantity }} available.</p>
       <p>{{ num_of_products_sold|get_dict_val:product.title }} {{ product }} have been sold</p>
+      <p>the average rating for your {{product.title}} is: {{ average_rating_for_products|get_dict_val:product.title}}</p>
       <hr>
     {% endfor %}
 
