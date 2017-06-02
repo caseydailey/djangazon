@@ -190,6 +190,6 @@ class LikeDislike(models.Model):
 
     def __str__(self):
         if self.liked:
-            return "like {} {}".format(self.product.title, self.product.id)
-        return "dislike {} {}".format(self.product.title, self.product.id)
+            return "like {}".format(self.product.title)
+        return "dislike {}".format(self.product.title)
 
