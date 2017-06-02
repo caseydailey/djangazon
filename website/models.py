@@ -189,3 +189,7 @@ class Ratings(models.Model):
     rating = models.IntegerField(default=1, validators=[MaxValueValidator(5),
                                              MinValueValidator(0)])
 
+    def __str__(self):
+        return self.product.title
+
+
