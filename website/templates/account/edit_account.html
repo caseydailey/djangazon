@@ -10,7 +10,20 @@
     {% include "navbar.html" %}
 
     <h1>Edit Account</h1>
-
+    
+    <form action="{% url 'website:edit_account' %}" method="post">
+      {% csrf_token %}
+      {{ user_form.as_p }}
+      
+      {% csrf_token %}
+      {{ profile_form.as_p }}
+      
+      <input type="submit" value="Update" />
+    </form>
+  
+    <ul>
+          <li><a href="{%url 'website:view_order_history' %}">Order History</a></li>
+    </ul>
     <ol>
     {% for payment_type in payment_types %}
         <li>{{ payment_type.type }}</li>
