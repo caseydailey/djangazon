@@ -211,3 +211,8 @@ class LikeDislike(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='preferrenced_product')
     liked = models.BooleanField()
 
+    def __str__(self):
+        if self.liked:
+            return "like {}".format(self.product.title)
+        return "dislike {}".format(self.product.title)
+

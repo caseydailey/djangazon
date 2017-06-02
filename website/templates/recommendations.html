@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bangazon</title>
+  </head>
+  <body>
+
+    {% include "navbar.html" %}    
+    <h2>Recommendations</h2>   
+
+    {# <h3>Specific Products Purchased: {{ specific_products_purchased }}</h3> #}
+
+    {# <h3>Here are your liked products: {{ liked_products }}</h3> #}
+    {# <h3>Here are your disliked products: {{ disliked_products }}</h3> #}
+    {# <h3>UNIQUE SET BETWEEN LIKED AND PURCHASED: {{ unique_set }}</h3>  #}
+    {# <h3>Products not liked or bought: {{  products_not_liked_or_bought }}</h3> #}
+    <hr> 
+    <h3>Products you will probs like: </h3>
+    {% for product in remaining_products %}
+      <p><a href="{% url 'website:product_details' product.id %}">{{ product }}</a></p>
+    {% endfor %}
+
+    <hr>
+    
+    {% if open_orders %}
+      <h3>Here is your open order:</h3>
+      {% for order in open_orders %}
+        <p>{{ order.product }}</p>
+      {% endfor %}
+    {% endif %}
+
+    <hr>   
+
+    {% if likes_dislikes %}
+      <h3>Your likes/dislikes</h3>
+      {% for like_dislike in likes_dislikes %}
+        <p>{{ like_dislike }}</p>
+      {% endfor %}      
+    {% else %}
+      <p>You have not liked or bought anything!</p>
+    {% endif %}
+
+    <hr>
+
+    <button><a href="{% url 'website:index' %}">Go Home</a></button>
+
+  </body>
+</html>
