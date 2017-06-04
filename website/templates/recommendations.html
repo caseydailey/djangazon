@@ -17,7 +17,7 @@
     {# <h3>UNIQUE SET BETWEEN LIKED AND PURCHASED: {{ unique_set }}</h3>  #}
     {# <h3>Products not liked or bought: {{  products_not_liked_or_bought }}</h3> #}
     <hr> 
-    <h3>Products you will probs like: </h3>
+    <h3>Based on you purchase history, we recommend the following products: </h3>
     {% for product in remaining_products %}
       <p><a href="{% url 'website:product_details' product.id %}">{{ product }}</a></p>
     {% endfor %}
