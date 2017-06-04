@@ -13,29 +13,29 @@ def recommendations(request):
 
     author: Taylor Perkins, casey dailey
 
-    args: request (object)
+    args: the django request object 
 
-    returns: (render): a view of of the request, template populated with recommendations
+    returns: rendered template populated with recommendations
     """
     
     if request.method == "GET":
         template_name = 'recommendations.html'            
 
         # get likes and dislikes
-        likes_dislikes = LikeDislike.objects.filter(user=request.user)
-        disliked_products = likes_dislikes.filter(liked=False).values('product')
-        liked_products = likes_dislikes.filter(liked=True).values('product')        
+        likes_and_dislikes = LikeDislike.objects.filter(user=request.user)
+        likes = likes_and_dislikes.filter(liked=True).values('product')        
+        dislikes = likes_and_dislikes.filter(liked=False).values('product')
 
         # get products user has purchased (puchase = liked)
-        specific_products_purchased = ( UserOrder.objects.filter(order__buyer=request.user)
+        purchased = ( UserOrder.objects.filter(order__buyer=request.user)
                                                          .exclude(order__date_complete__isnull=True)
                                                          .values('product')
                                                          .distinct())
         # union of puchased and liked
-        liked_or_purchased = specific_products_purchased.union(liked_products)
+        liked_or_purchased = purchased.union(likes)
 
         # total distinct products liked        
-        number_of_prods_liked_or_purchased = len(liked_or_purchased)
+        count_liked_or_purchased = len(liked_or_purchased)
 
         def cat_is_relevant(prods_in_cat, total_liked_prods):
             """
@@ -44,7 +44,7 @@ def recommendations(request):
             
             author: taylor perkins, casey dailey
             
-            args: prods_in_cat: (integer) number of products in a given category
+            args: prods_in_cat: (integer) number of products puchased or liked in a given category
                   total_liked_prods: (integer) number of products liked/purchased
             
             returns: Boolean indicating whether category is relevant
@@ -99,7 +99,7 @@ def recommendations(request):
         relevant_categories = list()
         for category in category_dict:
             num_prods_in_cat = len(category_dict[category]['products'])
-            is_relevant = cat_is_relevant(num_prods_in_cat, number_of_prods_liked_or_purchased)
+            is_relevant = cat_is_relevant(num_prods_in_cat, count_liked_or_purchased)
             category_dict[category] = is_relevant
 
             if is_relevant:
@@ -111,13 +111,13 @@ def recommendations(request):
         # print("relevant_categories: {}".format(relevant_categories))
 
         # get products purchased, liked, or disliked
-        liked_disliked_purchased = (liked_products.union(disliked_products
-                                                  .union(specific_products_purchased)))
+        liked_disliked_purchased = (likes.union(dislikes.union(purchased)))
         
-        # get what products are left
-        remaining_products = (Product.objects
-                                     .filter(product_category__category_name__in=relevant_categories)
-                                     .exclude(pk__in=liked_disliked_purchased))
+        # recommend products form relevant_categories
+        # that have not been purchased, liked, or disliked
+        recommended_products = (Product.objects
+                                       .filter(product_category__category_name__in=relevant_categories)
+                                       .exclude(pk__in=liked_disliked_purchased))
 
         # get the user's open orders. why?
         open_orders = UserOrder.objects.filter(
@@ -126,9 +126,9 @@ def recommendations(request):
 
         return render(request, template_name, {
             'likes_dislikes': likes_dislikes,
-            'specific_products_purchased': specific_products_purchased, 
-            'disliked_products': disliked_products,
-            'liked_products': liked_products,
+            'purchased': purchased, 
+            'dislikes': dislikes,
+            'likes': likes,
             'liked_or_purchased': liked_or_purchased,
-            'remaining_products': remaining_products,
+            'recommended_products': recommended_products,
             'open_orders': open_orders})
