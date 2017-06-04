@@ -33,10 +33,10 @@
 
     <hr>   
 
-    {% if likes_dislikes %}
+    {% if likes_and_dislikes %}
       <h3>Your likes/dislikes</h3>
-      {% for like_dislike in likes_dislikes %}
-        <p>{{ like_dislike }}</p>
+      {% for product in likes_and_dislikes %}
+        <p>{{ product }}</p>
       {% endfor %}      
     {% else %}
       <p>You have not liked or bought anything!</p>
