@@ -3,86 +3,126 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-# import forms and models form this app
+# import forms and models
 from website.models import UserOrder, LikeDislike, Product
 
 @login_required
 def recommendations(request):
     """
-    purpose: Gives the user a list of recommended products based off of user categories from 
-    from previous purchases.   
+    purpose: Gives the user a list of recommended products  
 
-    author: Taylor Perkins
+    author: Taylor Perkins, casey dailey
 
-    args: None
+    args: the django request object 
 
-    returns: (render): a view of of the request, template to use
+    returns: rendered template populated with recommendations
     """
-    # If trying to view, render product corresponding to id passed    
+    
     if request.method == "GET":
         template_name = 'recommendations.html'            
 
-        likes_dislikes = LikeDislike.objects.filter(user=request.user)
-        # print("Your likes_dislikes is a queryset:  {}".format(likes_dislikes))
+        # get likes and dislikes
+        likes_and_dislikes = LikeDislike.objects.filter(user=request.user)
+        likes = likes_and_dislikes.filter(liked=True).values('product')        
+        dislikes = likes_and_dislikes.filter(liked=False).values('product')
 
-        specific_products_purchased = UserOrder.objects.filter(order__buyer=request.user).exclude(order__date_complete__isnull=True).values('product').distinct()
-        # print("Your specific_products_purchased is a queryset:  {}".format(specific_products_purchased))                                        
+        # get products user has purchased (puchase = liked)
+        purchased = ( UserOrder.objects.filter(order__buyer=request.user)
+                                                         .exclude(order__date_complete__isnull=True)
+                                                         .values('product')
+                                                         .distinct())
+        # union of puchased and liked
+        liked_or_purchased = purchased.union(likes)
 
-        disliked_products = likes_dislikes.filter(liked=False).values('product')
-        liked_products = likes_dislikes.filter(liked=True).values('product')        
+        # total distinct products liked        
+        count_liked_or_purchased = len(liked_or_purchased)
 
-        unique_set = specific_products_purchased.union(liked_products)        
-        len_of_total_products_in_unique_set = len(unique_set)
+        def cat_is_relevant(prods_in_cat, total_liked_prods):
+            """
+            purpose: determine category's relevance to a user by determining the percentage
+                     of a given product category relative to their total likes/purchases
+            
+            author: taylor perkins, casey dailey
+            
+            args: prods_in_cat: (integer) number of products puchased or liked in a given category
+                  total_liked_prods: (integer) number of products liked/purchased
+            
+            returns: Boolean indicating whether category is relevant
+            """
+            relevance = prods_in_cat / total_liked_prods
 
-        def create_category_percentage(product_set_length, len_of_overall):
-            percentage = product_set_length / len_of_overall * 100
-            if percentage >= 25:
-                return [True, percentage]
+            if relevance >= .25:
+                return True
             else:
-                return [False, percentage]
+                return False
 
+        
+        # make a dict like this: 
+        # 
+        # 'electronics': {'products': {<Product: JBL Speakers>, <Product: Mac Book Pro 13>, <Product: Iphone 6s>}}, 
+        # 'home': {'products': {<Product: Dining Table>, <Product: Knife Set>}}, 
+        # 'general': {'products': {<Product: Yummy potato chips>, <Product: chop sticks>}}, 
+        # 'clothing': {'products': {<Product: Diesel Jeans>}}, 
+        # 'sports': {'products': {<Product: Vollyball>}}
+        # 
+        # the keys are the category names
+        # the values are dicts
+        # whose key 'products' have values which
+        # are sets of products in those categories
+        # the user has either like or purchased
         category_dict = dict()
-        for product in unique_set:            
-            django_product = Product.objects.get(pk=product['product'])
-            category_name = django_product.product_category.category_name            
+        for product in liked_or_purchased:            
+            prod_name = Product.objects.get(pk=product['product'])
+            category_name = prod_name.product_category.category_name            
             try: 
-                category_dict[category_name]['products'].add(django_product)
+                category_dict[category_name]['products'].add(prod_name)
             except KeyError:
                 category_dict[category_name] = dict()         
                 category_dict[category_name]['products'] = set()
-                category_dict[category_name]['products'].add(django_product)
+                category_dict[category_name]['products'].add(prod_name)
+        
+        # update category_dict like this:
+        # 
+        # 'electronics': True, 
+        # 'home': False, 
+        # 'general': False, 
+        # 'clothing': False, 
+        # 'sports': False
+        #
+        # True means relevant 
+        # relevant means the amount of products liked or purchased in that category
+        # represent at least 25% of the total products purchased or liked by that user
+        # 
+        # append relevant categories to a list of relevant categories
+        # ex:
+        # relevant_categories: ['electronics'] 
+        relevant_categories = list()
+        for category in category_dict:
+            num_prods_in_cat = len(category_dict[category]['products'])
+            is_relevant = cat_is_relevant(num_prods_in_cat, count_liked_or_purchased)
+            category_dict[category] = is_relevant
 
-        # print(category_dict)
+            if is_relevant:
+                relevant_categories.append(category)
 
-        pure_category_dict = dict()
-        for key, value in category_dict.items():
-            len_of_products_set = len(value['products'])
-            # print(len_of_products_set)
-            # print(len_of_total_products_in_unique_set)
-            percentage_list = create_category_percentage(len_of_products_set, len_of_total_products_in_unique_set)
-            category_dict[key]['percentage'] = percentage_list
-            if percentage_list[0]:
-                pure_category_dict[key] = category_dict[key]
+        # print("category_dict: {}".format(category_dict))
+        # print("relevant_categories: {}\n\n".format(relevant_categories))
 
-        # print(category_dict)
-        # print("\n\nYour pure category list: {}\n\n".format(pure_category_dict))
-        # print(pure_category_dict)
+        # get products purchased, liked, or disliked
+        liked_disliked_purchased = (likes.union(dislikes.union(purchased)))
+        
+        # recommend products form relevant_categories
+        # that have not been purchased, liked, or disliked
+        recommended_products = (Product.objects
+                                       .filter(product_category__category_name__in=relevant_categories)
+                                       .exclude(pk__in=liked_disliked_purchased))
 
-        products_not_to_search_for = liked_products.union(disliked_products.union(specific_products_purchased))
-        # print(products_not_to_search_for)
-        remaining_products = Product.objects.filter(product_category__category_name__in=pure_category_dict.keys()).exclude(pk__in=products_not_to_search_for)
-        # print(remaining_products)
-
-        # products_not_liked_or_bought = Product.objects.all().exclude(pk__in=[x for x in unique_set])
-
-        open_orders = UserOrder.objects.filter(order__buyer=request.user, order__payment_type__isnull=True)
-        # print(open_orders)
+        # get the user's open orders. why?
+        open_orders = UserOrder.objects.filter(
+                                                order__buyer=request.user, 
+                                                order__payment_type__isnull=True)
 
         return render(request, template_name, {
-            'likes_dislikes': likes_dislikes,
-            'specific_products_purchased': specific_products_purchased, 
-            'disliked_products': disliked_products,
-            'liked_products': liked_products,
-            'unique_set': unique_set,
-            'remaining_products': remaining_products,
+            'likes_and_dislikes': likes_and_dislikes, 
+            'recommended_products': recommended_products,
             'open_orders': open_orders})
