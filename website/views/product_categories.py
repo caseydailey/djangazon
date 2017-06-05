@@ -14,7 +14,7 @@ def product_categories(request):
     """
     # get all the categories and products and initialize a dict
     all_categories = Category.objects.all()
-    all_products = Product.objects.all().order_by('-id')
+    all_products = Product.objects.all().order_by('-id').exclude(quantity=0)
     top_three_per_cat = dict()
 
     # try to build a dict that looks like this:
@@ -29,7 +29,7 @@ def product_categories(request):
             if len(cat_product) < 3:
                 cat_product.add(product)
 
-        # if new category, set it's id as the key and initialize a set for it's value       
+        # if new category, set it's id as the key and initialize a set for it's value
         except KeyError:
             top_three_per_cat[product.product_category.id] = set()
             top_three_per_cat[product.product_category.id].add(product)

@@ -1,7 +1,6 @@
 # bring in the magic
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 # import forms and models
 from website.models import UserOrder, LikeDislike, Product

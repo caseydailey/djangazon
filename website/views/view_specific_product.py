@@ -22,7 +22,7 @@ def view_specific_product(request, category_id):
     # get the categories and display them
     template_name = 'product/category.html'
     category = get_object_or_404(Category, pk=category_id)
-    products = Product.objects.filter(product_category=category)
+    products = Product.objects.filter(product_category=category).exclude(quantity=0)
 
     # display products
     return render(request, template_name, {

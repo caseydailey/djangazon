@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 def edit_account(request):
     """
     author: miriam rozenbaum
-    
+
     purpose: display a user's account details such as: first_name, last_name, address, phone. 
     args: request, user, profile
 
@@ -15,11 +15,10 @@ def edit_account(request):
 
         user_form = EditUserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-    
+
         return render(request, "account/edit_account.html", {
             "user_form": user_form,
-            "profile_form": profile_form,
-            })
+            "profile_form": profile_form})
 
     elif request.method == 'POST':
         user_form = EditUserForm(request.POST, instance=request.user)
