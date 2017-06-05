@@ -11,28 +11,27 @@ def list_products(request):
 
     returns: rendered display of products matching keyword or city search
     """
-    
+
     if request.method == 'GET':
         # get value of search_box
         search_query = request.GET.get('search_box')
         print("search: {}".format(search_query))
-        # if they're searching and search_query is truthy (meaning it's not blank), 
+        # if they're searching and search_query is truthy (meaning it's not blank),
         # filter products where title, description, or city contains search_query
         if 'search_box' in request.GET and search_query:
             results = set()
-            results.update(Product.objects.filter(title__contains=search_query))
-            results.update(Product.objects.filter(description__contains=search_query))
-            results.update(Product.objects.filter(city__contains=search_query))
+            results.update(Product.objects.filter(title__contains=search_query).exclude(quantity=0))
+            results.update(Product.objects.filter(description__contains=search_query).exclude(quantity=0))
+            results.update(Product.objects.filter(city__contains=search_query).exclude(quantity=0))
 
             # if any return match, display
             if results:
                 return render(request, 'product/list.html', {"results": results})
 
-            # no results 
+            # no results
             else:
                 return render(request, 'product/no_products.html')
 
-        # they searched for nothing    
+        # they searched for nothing
         else:
             return render(request, 'product/no_products.html')
-            
