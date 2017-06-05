@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
+from django.contrib.auth.models import User
 
-from website.models import Product, User, Recommendations
+from website.models import Product, Recommendations
 
 def recommend_product(request, product_id):
     """
