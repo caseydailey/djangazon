@@ -105,10 +105,8 @@ def recommendations(request):
             if is_relevant:
                 relevant_categories.append(category)
 
-
         # print("category_dict: {}".format(category_dict))
         # print("relevant_categories: {}\n\n".format(relevant_categories))
-        # print("relevant_categories: {}".format(relevant_categories))
 
         # get products purchased, liked, or disliked
         liked_disliked_purchased = (likes.union(dislikes.union(purchased)))
