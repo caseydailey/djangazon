@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from .payment_type import PaymentType
+from .payment_type_model import PaymentType
 
 class Order(models.Model):
     """

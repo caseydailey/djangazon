@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from .product import Product
+from .product_model import Product
 
 class Recommendations(models.Model):
     """

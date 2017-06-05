@@ -1,6 +1,6 @@
 [
    {
-     "model": "website.models.Order",
+     "model": "website.Order",
      "pk": 1,
      "fields": {
        "buyer": 1,

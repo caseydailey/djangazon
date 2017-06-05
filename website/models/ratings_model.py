@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from .product import Product
+from .product_model import Product
 
 class Ratings(models.Model):
     """

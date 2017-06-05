@@ -1,7 +1,7 @@
 from django.db import models
 
-from .product import Product
-from .order import Order
+from .product_model import Product
+from .order_model import Order
 
 class UserOrder(models.Model):
     """
