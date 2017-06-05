@@ -15,16 +15,30 @@ def my_products(request):
     if request.method == 'GET':
         template_name = 'product/my_products.html'
 
-        user_products = Product.objects.filter(seller=request.user).exclude(quantity=0)
+        # get products the user's have sold 
+        user_products = Product.objects.filter(seller=request.user)
 
-        print(user_products)
-
+        # if user has sold products
         if user_products:
             num_of_products_sold = dict()
             for product in user_products:
-                num_of_products_sold[product.title] = UserOrder.objects.filter(product=product).exclude(order__in=[x for x in Order.objects.filter(payment_type=None)]).count()
 
+                # build a dict:
+                # 'product name': number sold,
+                # 'product name': number sold,
+                # 'product name': number sold,
+                # 'product name': number sold
+                # These values will be displayed to the user when viewing their 'my products' page
+                num_of_products_sold[product.title] = (UserOrder.objects.filter(product=product)
+                                                                        .exclude(order__in=[x for x in Order.objects.filter(payment_type=None)])
+                                                                        .count())
 
+            # get ratings for each product and put them in a dict:
+            # 'product name': average rating,
+            # 'product name': average rating,
+            # 'product name': average rating,
+            # 'product name': average rating
+            # These values will be displayed to the user when viewing their 'my products' page
             ratings_set = Ratings.objects.filter(product=product.id)
             average_rating_for_products = dict()
             for product in ratings_set:
@@ -35,8 +49,6 @@ def my_products(request):
                     average_rating = ratings_set.values('rating').aggregate(average_rating=Avg('rating'))
                     average_rating_for_products[product_name] = average_rating['average_rating']
 
-            print("average_rating_for_products: {}".format(average_rating_for_products))
-
             return render(request, template_name, {
                 "user_products": user_products,
                 "num_of_products_sold": num_of_products_sold,
@@ -45,24 +57,18 @@ def my_products(request):
         else:
             return render(request, "product/no_products_for_sale.html")
 
+    # user is trying to remove a product for sale   
     if request.method == 'POST':
-
         user_products = Product.objects.filter(seller=request.user)
-
 
         if 'delete_product' in request.POST:
 
-
             # Get all completed orders
+            # get the target product and set it's quantity to 0.
+            # this is effectively a "soft delete", no longer available, but still in the database.
             all_complete_orders = UserOrder.objects.all().exclude(order__date_complete__isnull=False)
-            print(all_complete_orders)
-            # get the target product
             target_product = request.POST.get('product')
-            print("1")
-            print(target_product)
-
             product = Product.objects.get(pk=target_product)
-            print(product)
             product.quantity = 0
             product.save()
 

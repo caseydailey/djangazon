@@ -30,11 +30,14 @@ def view_checkout(request, order_id):
             "payment_types": payment_types})
 
     # if attempting to checkout and they have products and payment types,
-    # get the payment type instance selected and apply it to the order along with a time stamp.
     elif request.method == 'POST' and products and payment_types:
+        
+        # get the payment type selected 
+        # get the order
         payment_type = PaymentType.objects.get(pk=request.POST.get('select'))
         order = Order.objects.get(pk=order_id)
         order_receipt = UserOrder.objects.filter(order=order)
+
         order_quantities = dict()
         for instance in order_receipt:
             try: 
@@ -43,28 +46,31 @@ def view_checkout(request, order_id):
                 order_quantities[instance.product.id] = list()
                 order_quantities[instance.product.id].append(instance.product)
 
+        #make sure there are enough of given product available before checkout
         check_for_below_zero_values = dict()
         for key, value in order_quantities.items():
             product = Product.objects.filter(pk=key)
             product_quantity = product.values('quantity')
-            print("Here is your product quantity: {}".format(product_quantity))
             check_for_below_zero_values[key] = product_quantity[0]['quantity'] - len(value)
 
+            # if there won't be enough, let the customer know
             if check_for_below_zero_values[key] < 0:
                 messages.info(request, 
-                    """Sorry, but we do not have enough {} for you to finish your order!! You currently have {} in your shopping cart,
-                    but we only have {} available! Please adjust your order and try again.""".format(product[0].title, len(value), product_quantity[0]['quantity']))
+                    """Sorry, but we do not have enough {} for you to finish your order!! 
+                       You currently have {} in your shopping cart,
+                       but we only have {} available! 
+                       Please adjust your order and try again.""".format(product[0].title, len(value), product_quantity[0]['quantity']))
 
                 return render(request, 'wrong_product_quantity.html')
 
-        print("Your order quantities: {}".format(order_quantities))
-        print("How much would be left: {}".format(check_for_below_zero_values))
-
+        
+        # update quantities
         for key, value in check_for_below_zero_values.items():
             product = Product.objects.get(pk=key)
             product.quantity = value
             product.save()
 
+        # finish this order by applying a payment_type and date_complete
         order.payment_type = payment_type
         order.date_complete = datetime.datetime.now()
         order.save()

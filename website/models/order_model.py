@@ -24,4 +24,6 @@ class Order(models.Model):
         null=True,
         blank=True
     )
-    date_complete = models.DateField(null=True, blank=True, auto_now=False, auto_now_add=False)  # This will get filled upon order completion
+    
+    # This will get filled upon order completion
+    date_complete = models.DateField(null=True, blank=True, auto_now=False, auto_now_add=False)  

@@ -13,11 +13,13 @@ def list_products(request):
     """
 
     if request.method == 'GET':
+
         # get value of search_box
         search_query = request.GET.get('search_box')
-        print("search: {}".format(search_query))
+        
         # if they're searching and search_query is truthy (meaning it's not blank),
-        # filter products where title, description, or city contains search_query
+        # filter products where title, description, or city contains search_query, 
+        # exclude products that are no longer available (quantity=0)
         if 'search_box' in request.GET and search_query:
             results = set()
             results.update(Product.objects.filter(title__contains=search_query).exclude(quantity=0))
