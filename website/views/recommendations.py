@@ -123,10 +123,6 @@ def recommendations(request):
                                                 order__payment_type__isnull=True)
 
         return render(request, template_name, {
-            'likes_and_dislikes': likes_and_dislikes,
-            'purchased': purchased, 
-            'dislikes': dislikes,
-            'likes': likes,
-            'liked_or_purchased': liked_or_purchased,
+            'likes_and_dislikes': likes_and_dislikes, 
             'recommended_products': recommended_products,
             'open_orders': open_orders})
