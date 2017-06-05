@@ -1,11 +1,6 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
+  {% extends 'index.html' %}
+  {% block content %}
+  {% load staticfiles %}
 
     {% include "navbar.html" %}    
 
@@ -24,5 +19,4 @@
      <hr>
    {% endfor %}
 
-  </body>
-</html>
+{% endblock %}

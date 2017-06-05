@@ -1,3 +1,54 @@
-li a {
+/* background color for website */
+body{
+  background: lightyellow;
+}
+p {
+  color:pink;
+}
+h1 {
+  color: blue;
+}
+h2 {
   color: green;
 }
+h3 {
+  color: purple;
+}
+h4 {
+  color: pink;
+}
+h5 {
+  color: lightblue;
+}
+h6{
+  color: hotpink;
+}
+/* link colors */
+li a {
+  color: blue;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* link on hover */
+li a:hover{
+  color: blue;
+  font-size: 17px;
+}
+/* main header styles */
+.page-header{
+  background-color: #ff9400;
+  margin-top: 0;
+  padding: 20px 20px 20px 40px;
+}
+/*.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+  color: #ffffff;
+  font-size: 36pt;
+  text-decoration: none;
+}*/
+/* register link */
+.register-link{
+  color: red;
+}
+
+

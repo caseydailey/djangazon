@@ -1,11 +1,6 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
+  {% extends '../index.html' %}
+  {% block content %}
+  {% load staticfiles %}
 
     {% include "navbar.html" %}
 
@@ -16,5 +11,4 @@
           
           <li><a href="{%url 'website:edit_account' %}">Edit Account</a></li>
     </ul>
-  </body>
-</html>
+{% endblock %}

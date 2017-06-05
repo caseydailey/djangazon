@@ -1,25 +1,28 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
-  
+  {% extends '../index.html' %}
+  {% block content %}
+  {% load staticfiles %}
+
     {% include "navbar.html" %}
 
     <h1>My Products</h1>
 
     {% load app_filters %}
 
-    {% for product in user_products %}    
-      <p>{{ product }}</p>
+    {% for product in user_products %}
+      <p>{{ product }} </p>
       <p>You have {{ product.quantity }} available.</p>
       <p>{{ num_of_products_sold|get_dict_val:product.title }} {{ product }} have been sold</p>
-      <p>the average rating for your {{product.title}} is: {{ average_rating_for_products|get_dict_val:product.title}}</p>
+      {% if average_rating_for_products %}
+        <p>the average rating for your {{product.title}} is: {{ average_rating_for_products|get_dict_val:product.title}}</p>        
+      {% else %}
+        <p>Your product hasn't been rated yet</p>
+      {% endif %}
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" value="{{product.id}}" name="product">
+        <input type="submit" value="Remove Product" name="delete_product">
       <hr>
     {% endfor %}
+  {% endblock %}
 
-  </body>
-</html>
+

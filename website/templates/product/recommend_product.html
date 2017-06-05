@@ -1,11 +1,6 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
+  {% extends '../index.html' %}
+  {% block content %}
+  {% load staticfiles %}
 
     {% include "navbar.html" %}
 
@@ -17,6 +12,4 @@
         <input  id="recommendation_search" type="text" name="recommendation_search"  placeholder="Search by username.." >
         <button id="recommendation_submit" type="submit" >Send Notification</button>
     </form>  
-
-  </body>
-</html>
+{% endblock %}

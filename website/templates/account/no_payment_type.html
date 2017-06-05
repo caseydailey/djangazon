@@ -1,11 +1,6 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
+  {% extends '../index.html' %}
+  {% block content %}
+  {% load staticfiles %}
 
     {% include "navbar.html" %}
 
@@ -15,7 +10,6 @@
 	<br>
 	<h2>or...</h2>
 	<br>
-	<a href="{% url 'website:add_payment_type' %}">create a payment type</a>
-  </body>
-</html>
+  <a href="{% url 'website:add_payment_type' %}">create a payment type</a>
+{% endblock %}
 

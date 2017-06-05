@@ -1,11 +1,6 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
+  {% extends '../index.html' %}
+  {% block content %}
+  {% load staticfiles %}
 
     {% include "navbar.html" %}    
     <h2>Recommendations</h2>   
@@ -38,6 +33,4 @@
     {% endif %}
     <hr>
     <button><a href="{% url 'website:index' %}">Go Home</a></button>
-
-  </body>
-</html>
+{% endblock %}
