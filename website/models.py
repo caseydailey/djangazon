@@ -5,7 +5,6 @@ from django.dispatch import receiver
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-
 # Create your models here.
 class Profile(models.Model):
     """
@@ -94,11 +93,11 @@ class Product(models.Model):
     )
     # django will display a dropdown with these choices
     CATEGORY_CHOICES = (
-        ('electronics' , 'ELECTRONICS'),
-        ('sports' , 'SPORTS'),
-        ('home' , 'HOME'),
-        ('general' , 'GENERAL'),
-        ('clothing' , 'CLOTHING')
+        ('electronics', 'ELECTRONICS'),
+        ('sports', 'SPORTS'),
+        ('home', 'HOME'),
+        ('general', 'GENERAL'),
+        ('clothing', 'CLOTHING')
     )
     product_category = models.ForeignKey(
         Category,
@@ -173,14 +172,12 @@ class Recommendations(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     viewed = models.BooleanField(default=0)
 
-
-
 class Ratings(models.Model):
     """
     purpose: Creates an intermediate table to store user ratings for products
-    
+
     author: casey dailey
-    
+
     args: models.Model
 
     returns: n/a
