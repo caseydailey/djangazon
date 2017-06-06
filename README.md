@@ -39,6 +39,8 @@ pip install selenium
 Install Chromedriver
 ```
 Directions are here --> https://sites.google.com/a/chromium.org/chromedriver/downloads
+
+Once you have it downloaded, make sure chromedriver is unzipped and lives in /usr/local/bin/
 ```
 
 ## Installation
