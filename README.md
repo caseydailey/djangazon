@@ -36,6 +36,11 @@ Install Selenium,:
 pip install selenium
 ```
 
+Install Chromedriver
+```
+Directions are here --> https://sites.google.com/a/chromium.org/chromedriver/downloads
+```
+
 ## Installation
 ```
 git clone https://github.com/Trashy-Armadillos/djangazon.git
