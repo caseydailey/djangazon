@@ -16,8 +16,7 @@ def list_products(request):
 
     if request.method == 'GET':
         # get value of search_box
-        search_query = request.GET.get('search_box')
-        print("search: {}".format(search_query))
+        search_query = request.GET.get('search_box')        
         # if they're searching and search_query is truthy (meaning it's not blank),
         # filter products where title, description, or city contains search_query
         if 'search_box' in request.GET and search_query:

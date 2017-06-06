@@ -31,6 +31,11 @@ Install Pillow:
 pip install Pillow
 ```
 
+Install Selenium,:
+```
+pip install selenium
+```
+
 ## Installation
 ```
 git clone https://github.com/Trashy-Armadillos/djangazon.git
