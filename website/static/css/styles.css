@@ -3,7 +3,7 @@ body{
   background: lightyellow;
 }
 p {
-  color:pink;
+  color:orange;
 }
 h1 {
   color: blue;
@@ -15,7 +15,7 @@ h3 {
   color: purple;
 }
 h4 {
-  color: pink;
+  color: green;
 }
 h5 {
   color: lightblue;
@@ -37,7 +37,6 @@ li a:hover{
 }
 /* main header styles */
 .page-header{
-  background-color: #ff9400;
   margin-top: 0;
   padding: 20px 20px 20px 40px;
 }

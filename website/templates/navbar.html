@@ -1,7 +1,7 @@
   {% block content %}
   <div class="row">
     <div class="col-md-12">
-      <h2 style="text-align: center;" class="main-header"> Welcome to Bangazon! </h2>
+      <h2 style="text-align: center;" class="main-header"> Welcome to Bangazon!! </h2>
     </div>
   </div>
       <div class="row">
@@ -35,11 +35,11 @@
         </div>
         <div class="col-sm-8 page-header">
           {% if user.is_authenticated %}
-            <h3 style="text-align: center;"> Good to see you again, {{user.username}} </h3>
+            <h3 style="text-align: center;"> Good to see you again, {{user.username}}!!</h3>
             <a href="{% url 'website:logout' %}">Logout</a>
           {% else %}
-            <div class="register-link" style="text-align: center;"><a href="{% url 'website:register' %}">Join the future, Join BANGAZON!</a></div>
-            <div style="text-align: center;"><a href="{% url 'website:login' %}">You've been gone to long! Log in!!! </a></div>
+            <div class="register-link" style="text-align: center;"><a href="{% url 'website:register' %}"><b>Join the future, Join BANGAZON!</b></a></div>
+            <div style="text-align: center;"><a href="{% url 'website:login' %}">You've been gone to long! :(  Log in!!! </a></div>
           {% endif %}
         </div>
     </div>

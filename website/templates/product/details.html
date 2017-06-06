@@ -12,7 +12,6 @@
       <form id="login_form" method="post">
           {% csrf_token %}
           {% if product_liked %}
-            <h6>You {{product_liked}}</h6>
             <h6><b>You {{product_liked}}</b></h6>
           <br /> 
           {% else %}         
