@@ -8,18 +8,18 @@
 
 
     <h2>Title: {{ product.title }}</h2>
-    {% if user.is_authenticated %}      
+    {% if user.is_authenticated %}
       <form id="login_form" method="post">
           {% csrf_token %}
           {% if product_liked %}
             <h6><b>You {{product_liked}}</b></h6>
-          <br /> 
-          {% else %}         
+          <br />
+          {% else %}
           <input type="submit" name="like_dislike" value="Like"  />
           <br />
           <input type="submit" name="like_dislike" value="Dislike" />
           {% endif %}
-      </form>          
+      </form>
     {% endif %}
 
 
@@ -34,8 +34,6 @@
       <img src="/media/{{product.image_path}}" alt="{{product.
       title}}" width="150">
       {%else%}
-      <img src="/media/images/no-image.png" alt="{{product.
-      title}}" width="150">
       {%endif%}
 
       {% if product.local_delivery %}

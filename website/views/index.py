@@ -12,12 +12,11 @@ def index(request):
     args: request
 
     returns: (render): a view of the request, template to use, and product obj
-    ''' 
+    '''
     if request.method == 'GET':
-        template_name = 'index.html'          
+        template_name = 'index.html'
         try:
-            newest_20_products = Product.objects.all().order_by("-id")[:20]
-            print(newest_20_products)
+            newest_20_products = Product.objects.exclude(quantity=0).order_by("-id")[:20]            
             return render(request, template_name, {
                   'newest_20_products': newest_20_products})
         except TypeError:

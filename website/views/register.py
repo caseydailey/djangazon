@@ -1,11 +1,9 @@
 # bring in the magic
-
 from django.shortcuts import render
+
 # import forms and models form this app
 from website.forms import UserForm, ProfileForm
 from website.views.login_user import login_user
-from website.models import User, Profile
-
 
 def register(request):
     """
