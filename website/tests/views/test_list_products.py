@@ -95,3 +95,4 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertTrue(self.selenium.find_element_by_xpath('//*[contains(text(), "Test1")]'))            
         self.assertTrue(self.selenium.find_element_by_xpath('//*[contains(text(), "Prada")]'))            
         self.assertTrue(self.selenium.find_element_by_xpath('//*[contains(text(), "Test3")]'))                    
+
