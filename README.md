@@ -31,6 +31,18 @@ Install Pillow:
 pip install Pillow
 ```
 
+Install Selenium,:
+```
+pip install selenium
+```
+
+Install Chromedriver
+```
+Directions are here --> https://sites.google.com/a/chromium.org/chromedriver/downloads
+
+Once you have it downloaded, make sure chromedriver is unzipped and lives in /usr/local/bin/
+```
+
 ## Installation
 ```
 git clone https://github.com/Trashy-Armadillos/djangazon.git
