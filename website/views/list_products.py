@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.db.models import Q
+
 from website.models import Product
 
 def list_products(request):
@@ -16,15 +18,13 @@ def list_products(request):
 
         # get value of search_box
         search_query = request.GET.get('search_box')
-        
+
         # if they're searching and search_query is truthy (meaning it's not blank),
         # filter products where title, description, or city contains search_query, 
         # exclude products that are no longer available (quantity=0)
         if 'search_box' in request.GET and search_query:
             results = set()
-            results.update(Product.objects.filter(title__contains=search_query).exclude(quantity=0))
-            results.update(Product.objects.filter(description__contains=search_query).exclude(quantity=0))
-            results.update(Product.objects.filter(city__contains=search_query).exclude(quantity=0))
+            results = Product.objects.filter(Q(title__contains=search_query) | Q(description__contains=search_query) | Q(city__contains=search_query)).exclude(quantity=0)            
 
             # if any return match, display
             if results:

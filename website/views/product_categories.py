@@ -34,4 +34,7 @@ def product_categories(request):
             print(top_three_per_cat)
 
     template_name = 'product/categories.html'
-    return render(request, template_name, {'all_categories': all_categories, 'product': all_products, 'top_three_per_cat': top_three_per_cat})
+    return render(request, template_name, {'all_categories': all_categories, 
+        'product': all_products, 
+        'top_three_per_cat': top_three_per_cat})
+

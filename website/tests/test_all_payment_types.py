@@ -1,6 +1,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-from website.models import User, PaymentType
+from django.contrib.auth.models import User
+from website.models import PaymentType
 
 class SpecificPaymentTypeTestCases(TestCase):
 
@@ -33,7 +34,6 @@ class SpecificPaymentTypeTestCases(TestCase):
         self.assertIn(self.payment_type_one, response.context['payment_types'])
         self.assertIn(self.payment_type_two, response.context['payment_types'])
         self.assertIn(self.payment_type_three, response.context['payment_types'])
-
 
 
 
