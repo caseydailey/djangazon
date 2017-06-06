@@ -27,7 +27,8 @@ def my_products(request):
             ratings_set = Ratings.objects.filter(product=product.id)
             average_rating_for_products = dict()
             for product in ratings_set:
-                product_name = str(product)
+                print("Hello")
+                product_name = str(product.product)
                 if product_name in average_rating_for_products:
                     pass
                 else:
