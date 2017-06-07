@@ -1,3 +1,49 @@
-li a {
+/* background color for website */
+body{
+  background: lightyellow;
+}
+p {
+  color:orange;
+}
+h1 {
+  color: blue;
+}
+h2 {
   color: green;
 }
+h3 {
+  color: purple;
+}
+h4 {
+  color: green;
+}
+h5 {
+  color: lightblue;
+}
+h6{
+  color: hotpink;
+}
+/* link colors */
+li a {
+  color: blue;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* link on hover */
+li a:hover{
+  color: blue;
+  font-size: 17px;
+}
+/* main header styles */
+.page-header{
+  margin-top: 0;
+  padding: 20px 20px 20px 40px;
+}
+
+/* register link */
+.register-link{
+  color: red;
+}
+
+

@@ -1,16 +1,10 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
+  {% extends '../index.html' %}
+  {% block content %}
+  {% load staticfiles %}
 
     {% include "navbar.html" %}
 
     <h1>Sorry, your search returned 0 results...</h1>
 	<a href="{% url 'website:index' %}">Go Home and Continue Chopping!!!</a>
-  </body>
-</html>
+  {% endblock %}
 
