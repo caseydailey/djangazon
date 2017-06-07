@@ -4,8 +4,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum
 from website.models import Order, UserOrder, Product, Ratings
 
-
-# invoked if there are no completed orders. it facilitates the display of a "no order" page.
 @login_required
 def display_order(request, order_id):
   '''

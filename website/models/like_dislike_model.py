@@ -5,12 +5,12 @@ from .product_model import Product
 
 class LikeDislike(models.Model):
     """
-    purpose: Creates Intermediate between to given Users and Products, to specify whether or not a user
-    Likes or Dislikes a Product. 
-    A product is liked when the user clicks like button on product_details, or they order that product
+    purpose: Creates Intermediate between to given Users and Products, 
+             to specify whether or not a user Likes or Dislikes a Product. 
+             A product is liked when the user clicks like button on product_details, 
+             or they order that product
 
     author: Taylor Perkins
-
 
     args: models.Model: (NA): models class given by Django
 
@@ -22,6 +22,6 @@ class LikeDislike(models.Model):
 
     def __str__(self):
         if self.liked:
-            return "like {}".format(self.product.title)
-        return "dislike {}".format(self.product.title)
+            return "liked {}".format(self.product.title)
+        return "disliked {}".format(self.product.title)
 

@@ -23,8 +23,11 @@ def product_details(request, product_id):
 
     returns: (render): a view of of the request, template to use, and product obj
     """
+    
     # If trying to view, render product corresponding to id passed
     product = get_object_or_404(Product, pk=product_id)
+
+
     if request.method == "GET":
         template_name = 'product/details.html'
         try:
@@ -72,7 +75,7 @@ def product_details(request, product_id):
             all_orders = Order.objects.filter(buyer=request.user)
 
             # try to get user's open order. assign the product to an order
-            # we should look into the get_or_create method as  potential refactor
+            # we should look into the get_or_create method as a potential refactor
             try:
                 open_order = all_orders.get(date_complete__isnull=True)
                 user_order = UserOrder(

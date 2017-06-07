@@ -26,6 +26,8 @@ def notifications(request):
 
     if request.method == 'POST':           
 
+        # if user is viewing their notifications, show them and mark as viewed
+        # so the count and view can be adjusted.
         if 'go_to_recommendation' in request.POST:                       
             recommendation_post = request.POST.get('go_to_recommendation')
             recommendation = Recommendations.objects.get(pk=recommendation_post)            

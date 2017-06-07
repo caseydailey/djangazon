@@ -22,11 +22,13 @@ class Profile(models.Model):
     def __str__(self):  # __unicode__ on Python 2
         return self.user.first_name
 
+    # listen for changes on user. update post-save
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
 
+    # listen for changes on user. update post-save
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()

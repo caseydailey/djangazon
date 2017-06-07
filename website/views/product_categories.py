@@ -18,11 +18,9 @@ def product_categories(request):
     top_three_per_cat = dict()
 
     # try to build a dict that looks like this:
-    #  top_three_per_cat= {
     #   category_id : (product, product, product),
     #   category_id : (product, product, product),
     #   category_id : (product, product, product)
-    #  }
     for product in all_products:
         try:
             cat_product = top_three_per_cat[product.product_category.id]

@@ -48,15 +48,15 @@ def sell_product(request):
         product_delivery = None
         product_image = None
 
+        # if trying to upload an image:
         if 'image_path' in request.FILES:
-            print("heyHERE")
             product_image = request.FILES['image_path']
         else:
-            print("heyElse")
             product_image = None
 
         try:
 
+            # handle local delivery T/F
             if 'local_delivery' in request.POST:
                 product_delivery = True
                 product = create_product(product_delivery, product_image)
