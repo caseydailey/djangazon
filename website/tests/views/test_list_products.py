@@ -8,20 +8,20 @@ from website.models import Product, Category
 import os
 os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = 'localhost:8000'
 
-class MySeleniumTests(LiveServerTestCase):    
+class TestListProducts(LiveServerTestCase):    
 
     @classmethod
     def setUpClass(cls):
         cls.selenium = webdriver.Chrome()        
         cls.factory = RequestFactory()           
-        super(MySeleniumTests, cls).setUpClass()        
+        super(TestListProducts, cls).setUpClass()        
 
     @classmethod
     def tearDownClass(cls):
         cls.selenium.quit()
-        super(MySeleniumTests, cls).tearDownClass()
+        super(TestListProducts, cls).tearDownClass()
 
-    def test_login(self):     
+    def test_search_input_in_navbar(self):     
 
         self.selenium.get('{}{}'.format(self.live_server_url, '/register'))
 
