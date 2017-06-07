@@ -17,13 +17,10 @@ def my_products(request):
 
         user_products = Product.objects.filter(seller=request.user).exclude(quantity=0)
 
-        print(user_products)
-
         if user_products:
             num_of_products_sold = dict()
             for product in user_products:
                 num_of_products_sold[product.title] = UserOrder.objects.filter(product=product).exclude(order__in=[x for x in Order.objects.filter(payment_type=None)]).count()
-
 
             ratings_set = Ratings.objects.filter(product=product.id)
             average_rating_for_products = dict()
@@ -33,9 +30,7 @@ def my_products(request):
                     pass
                 else:
                     average_rating = ratings_set.values('rating').aggregate(average_rating=Avg('rating'))
-                    average_rating_for_products[product_name] = average_rating['average_rating']
-
-            print("average_rating_for_products: {}".format(average_rating_for_products))
+                    average_rating_for_products[product_name] = average_rating['average_rating']            
 
             return render(request, template_name, {
                 "user_products": user_products,
@@ -49,9 +44,7 @@ def my_products(request):
 
         user_products = Product.objects.filter(seller=request.user)
 
-
         if 'delete_product' in request.POST:
-
 
             # Get all completed orders
             all_complete_orders = UserOrder.objects.all().exclude(order__date_complete__isnull=False)
