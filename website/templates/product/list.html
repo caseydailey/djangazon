@@ -1,7 +1,6 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
+  {% extends '../index.html' %}
+  {% block content %}
+  {% load staticfiles %}
     <meta charset="utf-8">
     <title>Bangazon</title>
   </head>
@@ -18,5 +17,4 @@
     {% endfor %} 
     
     </ol>
-  </body>
-</html>
+{% endblock %}

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 
+  {% load staticfiles %}
   {% block title %}<title>Local Library</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,14 +12,17 @@
 
   <!-- Add additional CSS in static file -->
   {% load static %}
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
-
+  {% block content %}
   <div class="container-fluid">
 
-    {% include "navbar.html" %}  
+    {% include "navbar.html" %}
+
 
     <input type="text" name="input_test">
 
@@ -38,5 +42,6 @@
 
 
   </div>
+{% endblock %}  
 </body>
 </html>
